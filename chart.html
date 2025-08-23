@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 适配移动设备：确保页面在手机上正常显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="常用AI平台导航，包含腾讯元宝、英伟达、百度等AI工具入口">
+    <meta name="keywords" content="AI平台,腾讯元宝,英伟达,百度AI,Deepinfra">
+    <title>常用AI平台导航</title>
+    <style>
+        /* 全局基础样式：统一页面风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* 统一盒模型，避免尺寸计算偏差 */
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333; /* 正文深色，提升可读性 */
+            background-color: #f8f9fa; /* 浅灰背景，减轻视觉疲劳 */
+            padding: 20px;
+            max-width: 1200px; /* 限制最大宽度，避免宽屏显示过于分散 */
+            margin: 0 auto; /* 页面水平居中 */
+        }
+
+        /* 页面标题样式 */
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0; /* 下划线分隔标题与内容 */
+        }
+
+        /* 横向链接容器样式 */
+        .ai-link-container {
+            background-color: #fff; /* 白色背景，突出链接区域 */
+            border-radius: 8px; /* 圆角设计，更现代 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 轻微阴影，增强层次感 */
+            padding: 20px;
+            margin-bottom: 24px;
+            overflow-x: auto; /* 小屏幕横向滚动，避免文字挤压 */
+        }
+
+        /* 单个链接项样式 */
+        .ai-link-item {
+            margin-right: 20px; /* 名称间间距，比之前稍大更易点击 */
+            margin-bottom: 8px; /* 换行时保留垂直间距 */
+            display: inline-block; /* 确保横向排列 */
+        }
+
+        /* 链接核心样式：突出可点击属性 */
+        .ai-link-item a {
+            text-decoration: none;
+            color: #1a73e8; /* 谷歌系经典蓝，视觉醒目且不刺眼 */
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease; /* 平滑过渡，提升交互体验 */
+            padding: 4px 8px;
+            border-radius: 4px; /* 链接内圆角，hover时背景更美观 */
+        }
+
+        /* hover交互：明确反馈点击状态 */
+        .ai-link-item a:hover {
+            color: #0d47a1; /* 颜色加深，增强层次感 */
+            background-color: #e8f0fe; /* 浅蓝背景，突出点击区域 */
+            text-decoration: underline; /* 下划线提示可点击 */
+        }
+
+        /* 聚焦状态：提升键盘访问可访问性（适配无障碍需求） */
+        .ai-link-item a:focus {
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.3); /* 聚焦框，明确当前选中项 */
+        }
+
+        /* 响应式适配：小屏幕（手机）自动换行 */
+        @media (max-width: 768px) {
+            .ai-link-item {
+                display: block; /* 垂直排列 */
+                margin-right: 0; /* 取消水平间距 */
+            }
+
+            .page-title {
+                font-size: 20px; /* 手机端标题缩小，适配屏幕 */
+            }
+
+            body {
+                padding: 15px; /* 手机端减少内边距，充分利用屏幕 */
+            }
+        }
+
+        /* 底部说明文字样式 */
+        .footer-note {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面标题：明确页面用途 -->
+    <h1 class="page-title">常用AI平台导航</h1>
+
+    <!-- 核心链接区域：网站名称直接作为可点击链接 -->
+    <div class="ai-link-container">
+        <span class="ai-link-item"><a href="https://yuanbao.tencent.com/chat/naQivTmsDa" target="_blank" rel="noopener noreferrer">腾讯元宝</a></span>
+        <span class="ai-link-item"><a href="https://build.nvidia.com/deepseek-ai/deepseek-r1" target="_blank" rel="noopener noreferrer">英伟达</a></span>
+        <span class="ai-link-item"><a href="https://chat.baidu.com/search?extParams=%7B%22enter_type%22%3A%22chat_url%22%7D&amp;isShowHello=1" target="_blank" rel="noopener noreferrer">百度</a></span>
+        <span class="ai-link-item"><a href="https://deepinfra.com/chat/" target="_blank" rel="noopener noreferrer">Deepinfra</a></span>
+        <span class="ai-link-item"><a href="https://flowith.io/blank" target="_blank" rel="noopener noreferrer">Flowith</a></span>
+        <span class="ai-link-item"><a href="https://lambda.chat/" target="_blank" rel="noopener noreferrer">Lambda</a></span>
+        <span class="ai-link-item"><a href="https://fanyi.youdao.com/#/AITranslate" target="_blank" rel="noopener noreferrer">有道</a></span>
+        <span class="ai-link-item"><a href="https://www.tiangong.cn/" target="_blank" rel="noopener noreferrer">天工ai</a></span>
+        <span class="ai-link-item"><a href="https://xiaoyi.huawei.com/chat/" target="_blank" rel="noopener noreferrer">华为小艺ai网页版</a></span>
+        <span class="ai-link-item"><a href="https://zhida.zhihu.com/" target="_blank" rel="noopener noreferrer">知乎直答</a></span>
+    </div>
+
+    <!-- 底部说明：提升用户体验 -->
+    <div class="footer-note">
+        点击平台名称即可跳转至对应官网 | 所有链接均为官方入口，安全可靠
+    </div>
+</body>
+</html>
