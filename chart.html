@@ -2,127 +2,341 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 适配移动设备：确保页面在手机上正常显示 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="常用AI平台导航，包含腾讯元宝、英伟达、百度等AI工具入口">
-    <meta name="keywords" content="AI平台,腾讯元宝,英伟达,百度AI,Deepinfra">
-    <title>常用AI平台导航</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全特殊符号展示</title>
     <style>
-        /* 全局基础样式：统一页面风格 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box; /* 统一盒模型，避免尺寸计算偏差 */
-        }
-
         body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.8;
-            color: #333; /* 正文深色，提升可读性 */
-            background-color: #f8f9fa; /* 浅灰背景，减轻视觉疲劳 */
+            font-family: Arial, sans-serif;
             padding: 20px;
-            max-width: 1200px; /* 限制最大宽度，避免宽屏显示过于分散 */
-            margin: 0 auto; /* 页面水平居中 */
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
         }
-
-        /* 页面标题样式 */
-        .page-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #202124;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e0e0e0; /* 下划线分隔标题与内容 */
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        /* 横向链接容器样式 */
-        .ai-link-container {
-            background-color: #fff; /* 白色背景，突出链接区域 */
-            border-radius: 8px; /* 圆角设计，更现代 */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 轻微阴影，增强层次感 */
-            padding: 20px;
-            margin-bottom: 24px;
-            overflow-x: auto; /* 小屏幕横向滚动，避免文字挤压 */
-        }
-
-        /* 单个链接项样式 */
-        .ai-link-item {
-            margin-right: 20px; /* 名称间间距，比之前稍大更易点击 */
-            margin-bottom: 8px; /* 换行时保留垂直间距 */
-            display: inline-block; /* 确保横向排列 */
-        }
-
-        /* 链接核心样式：突出可点击属性 */
-        .ai-link-item a {
-            text-decoration: none;
-            color: #1a73e8; /* 谷歌系经典蓝，视觉醒目且不刺眼 */
-            cursor: pointer;
-            outline: none;
-            transition: all 0.2s ease; /* 平滑过渡，提升交互体验 */
-            padding: 4px 8px;
-            border-radius: 4px; /* 链接内圆角，hover时背景更美观 */
-        }
-
-        /* hover交互：明确反馈点击状态 */
-        .ai-link-item a:hover {
-            color: #0d47a1; /* 颜色加深，增强层次感 */
-            background-color: #e8f0fe; /* 浅蓝背景，突出点击区域 */
-            text-decoration: underline; /* 下划线提示可点击 */
-        }
-
-        /* 聚焦状态：提升键盘访问可访问性（适配无障碍需求） */
-        .ai-link-item a:focus {
-            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.3); /* 聚焦框，明确当前选中项 */
-        }
-
-        /* 响应式适配：小屏幕（手机）自动换行 */
-        @media (max-width: 768px) {
-            .ai-link-item {
-                display: block; /* 垂直排列 */
-                margin-right: 0; /* 取消水平间距 */
-            }
-
-            .page-title {
-                font-size: 20px; /* 手机端标题缩小，适配屏幕 */
-            }
-
-            body {
-                padding: 15px; /* 手机端减少内边距，充分利用屏幕 */
-            }
-        }
-
-        /* 底部说明文字样式 */
-        .footer-note {
-            font-size: 14px;
-            color: #666;
+        h1 {
+            color: #333;
             text-align: center;
-            padding-top: 12px;
-            border-top: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        .symbol-group {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .symbol-group:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #555;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #666;
+        }
+        .symbols {
+            font-size: 20px;
+            line-height: 1.8;
+            letter-spacing: 4px;
+            word-wrap: break-word;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            .symbols {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 页面标题：明确页面用途 -->
-    <h1 class="page-title">常用AI平台导航</h1>
-
-    <!-- 核心链接区域：网站名称直接作为可点击链接 -->
-    <div class="ai-link-container">
-        <span class="ai-link-item"><a href="https://yuanbao.tencent.com/chat/naQivTmsDa" target="_blank" rel="noopener noreferrer">腾讯元宝</a></span>
-        <span class="ai-link-item"><a href="https://build.nvidia.com/deepseek-ai/deepseek-r1" target="_blank" rel="noopener noreferrer">英伟达</a></span>
-        <span class="ai-link-item"><a href="https://chat.baidu.com/search?extParams=%7B%22enter_type%22%3A%22chat_url%22%7D&amp;isShowHello=1" target="_blank" rel="noopener noreferrer">百度</a></span>
-        <span class="ai-link-item"><a href="https://deepinfra.com/chat/" target="_blank" rel="noopener noreferrer">Deepinfra</a></span>
-        <span class="ai-link-item"><a href="https://flowith.io/blank" target="_blank" rel="noopener noreferrer">Flowith</a></span>
-        <span class="ai-link-item"><a href="https://lambda.chat/" target="_blank" rel="noopener noreferrer">Lambda</a></span>
-        <span class="ai-link-item"><a href="https://fanyi.youdao.com/#/AITranslate" target="_blank" rel="noopener noreferrer">有道</a></span>
-        <span class="ai-link-item"><a href="https://www.tiangong.cn/" target="_blank" rel="noopener noreferrer">天工ai</a></span>
-        <span class="ai-link-item"><a href="https://xiaoyi.huawei.com/chat/" target="_blank" rel="noopener noreferrer">华为小艺ai网页版</a></span>
-        <span class="ai-link-item"><a href="https://zhida.zhihu.com/" target="_blank" rel="noopener noreferrer">知乎直答</a></span>
-    </div>
-
-    <!-- 底部说明：提升用户体验 -->
-    <div class="footer-note">
-        点击平台名称即可跳转至对应官网 | 所有链接均为官方入口，安全可靠
+    <div class="container">
+        <h1>特殊符号大全</h1>
+        
+        <div class="symbol-group">
+            <h2>特殊文字符号</h2>
+            <div class="symbols">🐌 🐐 🐘 🐙 🐞 🐠 🐈 🐕 🐦 🐬 🐖 🐇 🐅 🐃</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>1、常用符号</h2>
+            <div class="symbols">❤❥웃유♋☮✌☏☢☠✔☑♚▲♪✈✞÷↑↓◆◇⊙■□△▽¿─│♥❣♂♀☿Ⓐ✍✉☣☤✘☒♛▼♫⌘☪≈←→◈◎☉★☆⊿※¡━┃♡ღツ☼☁❅♒✎©®™Σ✪✯☭➳卐√↖↗●◐Θ◤◥︻〖〗┄┆℃℉°✿ϟ☃☂✄¢€£∞✫★½✡×↙↘○◑⊕◣◢︼【】┅┇☽☾✚〓▂▃▄▅▆▇█▉▊▋▌▍▎▏↔↕☽☾の•▸◂▴▾┈┊①②③④⑤⑥⑦⑧⑨⑩ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ㍿▓♨♛❖♓☪✙┉┋☹☺☻تヅツッシÜϡﭢ™℠℗©®♥❤❥❣❦❧♡۵웃유ღ♋♂♀☿☼☀☁☂☄☾☽❄☃☈⊙☉℃℉❅✺ϟ☇♤♧♡♢♠♣♥♦☜☞☝✍☚☛☟✌✽✾✿❁❃❋❀⚘☑✓✔√☐☒✗✘ㄨ✕✖✖⋆✢✣✤✥❋✦✧✩✰✪✫✬✭✮✯❂✡★✱✲✳✴✵✶✷✸✹✺✻✼❄❅❆❇❈❉❊†☨✞✝☥☦☓☩☯☧☬☸✡♁✙♆。，、＇：∶；?‘’“”〝〞ˆˇ﹕︰﹔﹖﹑•¨….¸;！´？！～—ˉ｜‖＂〃｀@﹫¡¿﹏﹋﹌︴々﹟#﹩$﹠&﹪%*﹡﹢﹦﹤‐￣¯―﹨ˆ˜﹍﹎+=<＿-\ˇ~﹉﹊（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」【】︵︷︿︹︽﹁﹃︻︶︸﹀︺︾ˉ﹂﹄︼☩☨☦✞✛✜✝✙✠✚†‡◉○◌◍◎●◐◑◒◓◔◕◖◗❂☢⊗⊙◘◙◍⅟½⅓⅕⅙⅛⅔⅖⅚⅜¾⅗⅝⅞⅘≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩⊰⊱⋛⋚∫∬∭∮∯∰∱∲∳%℅‰‱㊣㊎㊍㊌㊋㊏㊐㊊㊚㊛㊤㊥㊦㊧㊨㊒㊞㊑㊒㊓㊔㊕㊖㊗㊘㊜㊝㊟㊠㊡㊢㊩㊪㊫㊬㊭㊮㊯㊰㊙㉿囍♔♕♖♗♘♙♚♛♜♝♞♟ℂℍℕℙℚℝℤℬℰℯℱℊℋℎℐℒℓℳℴ℘ℛℭ℮ℌℑℜℨ♪♫♩♬♭♮♯°øⒶ☮✌☪✡☭✯卐✐✎✏✑✒✍✉✁✂✃✄✆✉☎☏➟➡➢➣➤➥➦➧➨➚➘➙➛➜➝➞➸♐➲➳⏎➴➵➶➷➸➹➺➻➼➽←↑→↓↔↕↖↗↘↙↚↛↜↝↞↟↠↡↢↣↤↥↦↧↨➫➬➩➪➭➮➯➱↩↪↫↬↭↮↯↰↱↲↳↴↵↶↷↸↹↺↻↼↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇚⇛⇜⇝⇞⇟⇠⇡⇢⇣⇤⇥⇦⇧⇨⇩⇪➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬◤◥◄►▶◀◣◢▲▼◥▸◂▴▾△▽▷◁⊿▻◅▵▿▹◃❏❐❑❒▀▁▂▃▄▅▆▇▉▊▋█▌▍▎▏▐░▒▓▔▕■□▢▣▤▥▦▧▨▩▪▫▬▭▮▯㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㍙㍚㍛㍜㍝㍞㍟㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍘☰☲☱☴☵☶☳☷☯</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>2、特殊符号</h2>
+            <div class="symbols">♠♣♧♡♥❤❥❣♂♀✲☀☼☾☽◐◑☺☻☎☏✿❀№↑↓←→√×÷★℃℉°◆◇⊙■□△▽¿½☯✡㍿卍卐♂♀✚〓㎡♪♫♩♬㊚㊛囍㊒㊖Φ♀♂‖@*&#※卍卐Ψ♫♬♭♩♪♯♮⌒¶∮…</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>3、编号序号</h2>
+            <div class="symbols">①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⓪❶❷❸❹❺❻❼❽❾❿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>4、数学符号</h2>
+            <div class="symbols">﹢﹣×÷±/=≌∽≦≧≒﹤﹥≈≡≠=≤≥<>≮≯∷∶∫∮∝∞∧∨∑∏∪∩∈∵∴⊥∥∠⌒⊙√∟⊿㏒㏑%‰⅟½⅓⅕⅙⅛⅔⅖⅚⅜¾⅗⅝⅞⅘≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩⊰⊱⋛⋚∫∬∭∮∯∰∱∲∳%℅‰‱øØπ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>5、爱心符号</h2>
+            <div class="symbols">♥❣ღ♠♡♤❤❥</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>6、标点符号</h2>
+            <div class="symbols">。，、＇：∶；?‘’“”〝〞ˆˇ﹕︰﹔﹖﹑•¨….¸;！´？！～—ˉ｜‖＂〃｀@﹫¡¿﹏﹋﹌︴々﹟#﹩$﹠&﹪%*﹡﹢﹦﹤‐￣¯―﹨ˆ˜﹍﹎+=<＿-\ˇ~﹉﹊（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」【】︵︷︿︹︽﹁﹃︻︶︸﹀︺︾ˉ﹂﹄︼❝❞</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>7、单位符号</h2>
+            <div class="symbols">°′″＄￥〒￠￡％＠℃℉﹩﹪‰﹫㎡㏕㎜㎝㎞㏎m³㎎㎏㏄º○¤%$º¹²³</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>8、货币符号</h2>
+            <div class="symbols">€£Ұ₴$₰¢₤¥₳₲₪₵元₣₱฿¤₡₮₭₩ރ円₢₥₫₦zł﷼₠₧₯₨Kčर₹ƒ₸￠</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>9、箭头符号（含推导&转换符号）</h2>
+            <div class="symbols">↑↓←→↖↗↘↙↔↕➻➼➽➸➳➺➻➴➵➶➷➹▶►▷◁◀◄«»➩➪➫➬➭➮➯➱⏎➲➾➔➘➙➚➛➜➝➞➟➠➡➢➣➤➥➦➧➨↚↛↜↝↞↟↠↠↡↢↣↤↤↥↦↧↨⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏⇐⇑⇒⇓⇔⇖⇗⇘⇙⇜↩↪↫↬↭↮↯↰↱↲↳↴↵↶↷↸↹☇☈↼↽↾↿⇀⇁⇂⇃⇞⇟⇠⇡⇢⇣⇤⇥⇦⇧⇨⇩⇪↺↻⇚⇛♐</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>10、符号图案</h2>
+            <div class="symbols">✐✎✏✑✒✍✉✁✂✃✄✆✉☎☏☑✓✔√☐☒✗✘ㄨ✕✖✖☢☠☣✈★☆✡囍㍿☯☰☲☱☴☵☶☳☷☜☞☝✍☚☛☟✌♤♧♡♢♠♣♥♦☀☁☂❄☃♨웃유❖☽☾☪✿♂♀✪✯☭➳卍卐√×■◆●○◐◑✙☺☻❀⚘♔♕♖♗♘♙♚♛♜♝♞♟♧♡♂♀♠♣♥❤☜☞☎☏⊙◎☺☻►◄▧▨♨◐◑↔↕▪▒◊◦▣▤▥▦▩◘◈◇♬♪♩♭♪の★☆→あぃ￡Ю〓§♤♥▶¤✲❈✿✲❈➹☀☂☁【】┱┲❣✚✪✣✤✥✦❉❥❦❧❃❂❁❀✄☪☣☢☠☭ღ▶▷◀◁☀☁☂☃☄★☆☇☈⊙☊☋☌☍ⓛⓞⓥⓔ╬『』∴☀♫♬♩♭♪☆∷﹌の★◎▶☺☻►◄▧▨♨◐◑↔↕↘▀▄█▌◦☼♪の☆→♧ぃ￡❤▒▬♦◊◦♠♣▣۰•❤•۰►◄▧▨♨◐◑↔↕▪▫☼♦▀▄█▌▐░▒▬♦◊◘◙◦☼♠♣▣▤▥▦▩◘◙◈♫♬♪♩♭♪✄☪☣☢☠♯♩♪♫♬♭♮☎☏☪♈ºº₪¤큐«»™♂✿♥　◕‿-｡　｡◕‿◕｡</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>11、希腊字母</h2>
+            <div class="symbols">ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζνξοπρσηθικλμτυφχψω</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>12、俄语字母</h2>
+            <div class="symbols">АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>13、汉语拼音</h2>
+            <div class="symbols">āáǎà ōóǒò ēéěè īíǐì ūúǔù üǖǘǚǜ ńňǹ ḿm̀ āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜüêɑńňɡㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>14、中文字符</h2>
+            <div class="symbols">零壹贰叁肆伍陆柒捌玖拾佰仟万亿吉太拍艾分厘毫微卍卐卄巜弍弎弐朤氺曱甴囍兀々〆のぁ〡〢〣〤〥〦〧〨〩㊎㊍㊌㊋㊏㊚㊛㊐㊊㊣㊤㊥㊦㊧㊨㊒㊫㊑㊓㊔㊕㊖㊗㊘㊜㊝㊞㊟㊠㊡㊢㊩㊪㊬㊭㊮㊯㊰㊙</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>15、日文符号</h2>
+            <div class="symbols">ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ゠ㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>16、制表符号</h2>
+            <div class="symbols">─ ━│┃╌╍╎╏┄ ┅┆┇┈ ┉┊┋┌┍┎┏┐┑┒┓└ ┕┖┗ ┘┙┚┛├┝┞┟┠┡┢┣ ┤┥┦┧┨┩┪┫┬ ┭ ┮ ┯ ┰ ┱ ┲ ┳ ┴ ┵ ┶ ┷ ┸ ┹ ┺ ┻┼ ┽ ┾ ┿ ╀ ╁ ╂ ╃ ╄ ╅ ╆ ╇ ╈ ╉ ╊ ╋ ╪ ╫ ╬═║╒╓╔ ╕╖╗╘╙╚ ╛╜╝╞╟╠ ╡╢╣╤ ╥ ╦ ╧ ╨ ╩ ╳╔ ╗╝╚ ╬ ═ ╓ ╩ ┠ ┨┯ ┷┏ ┓┗ ┛┳ ⊥ ﹃ ﹄┌ ╮ ╭ ╯╰</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>17、皇冠符号</h2>
+            <div class="symbols">♚　♛　♝　♞　♜　♟　♔　♕　♗　♘　♖　♟</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>18、彩色表情符号</h2>
+            <div class="symbols">🌹🍀🍎💰📱🌙🍁🍂🍃🌷💎🔪🔫🏀⚽⚡👄👍🔥</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>（1）常用emoji符号一</h2>
+            <div class="symbols">😀😁😂😃😄😅😆😉😊😋😎😍😘😗😙😚☺😇😐😑😶😏😣😥😮😯😪😫😴😌😛😜😝😒😓😔😕😲😷😖😞😟😤😢😭😦😧😨😬😰😱😳😵😡😠😈👿👹👺💀👻👽👦👧👨👩👴👵👶👱👮👲👳👷👸💂🎅👰👼💆💇🙍🙎🙅🙆💁🙋🙇🙌🙏👤👥🚶🏃👯💃👫👬👭💏💑👪💪👈👉☝👆👇✌✋👌👍👎✊👊👋👏👐✍👣👀👂👃👅👄💋👓👔👕👖👗👘👙👚👛👜👝🎒💼👞👟👠👡👢👑👒🎩🎓💄💅💍🌂</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>（2）常用emoji符号二</h2>
+            <div class="symbols">🙈🙉🙊🐵🐒🐶🐕🐩🐺🐱😺😸😹😻😼😽🙀😿😾🐈🐯🐅🐆🐴🐎🐮🐂🐃🐄🐷🐖🐗🐽🐏🐑🐐🐪🐫🐘🐭🐁🐀🐹🐰🐇🐻🐨🐼🐾🐔🐓🐣🐤🐥🐦🐧🐸🐊🐢🐍🐲🐉🐳🐋🐬🐟🐠🐡🐙🐚🐌🐛🐜🐝🐞🦋💐🌸💮🌹🌺🌻🌼🌷🌱🌲🌳🌴🌵🌾🌿🍀🍁🍂🍃🌍🌎🌏🌐🌑🌒🌓🌔🌕🌖🌗🌘🌙🌚🌛🌜☀🌝🌞⭐🌟🌠☁⛅☔⚡❄🔥💧🌊💩🍇🍈🍉🍊🍋🍌🍍🍎🍏🍐🍑🍒🍓🍅🍆🌽🍄🌰🍞🍖🍗🍔🍟🍕🍳🍲🍱🍘🍙🍚🍛🍜🍝🍠🍢🍣🍤🍥🍡🍦🍧🍨🍩🍪🎂🍰🍫🍬🍭🍮🍯🍼☕🍵🍶🍷🍸🍹🍺🍻🍴</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>（3）常用emoji符号三</h2>
+            <div class="symbols">🎪🎭🎨🎰🚣🛀🎫🏆⚽⚾🏀🏈🏉🎾🎱🎳⛳🎣🎽🎿🏂🏄🏇🏊🚴🚵🎯🎮🎲🎷🎸🎺🎻🎬👾🌋🗻🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪⛲🌁🌃🌆🌇🌉🌌🎠🎡🎢🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚏🚐🚑🚒🚓🚔🚕🚖🚗🚘🚚🚛🚜🚲⛽🚨🚥🚦🚧⚓⛵🚤🚢✈💺🚁🚟🚠🚡🚀🎑🗿🛂🛃🛄🛅💌💎🔪💈🚪🚽🚿🛁⌛⏳⌚⏰🎈🎉🎊🎎🎏🎐🎀🎁📯📻📱📲☎📞📟📠🔋🔌💻💽💾💿📀🎥📺📷📹📼🔍🔎🔬🔭📡💡🔦🏮📔📕📖📗📘📙📚📓📃📜📄📰📑🔖💰💴💵💶💷💸💳✉📧📨📩📤📥📦📫📪📬📭📮✏✒📝📁📂📅📆📇📈📉📊📋📌📍📎📏📐✂🔒🔓🔏🔐🔑🔨🔫🔧🔩🔗💉💊🚬🔮🚩🎌💦💨💣☠♠♥♦♣🀄🎴🔇🔈🔉🔊📢📣💤💢💬💭♨🌀🔔🔕✡✝🔯📛🔰🔱⭕✅☑✔✖❌❎➕➖➗➰➿〽✳✴❇‼⁉❓❔❕❗©®™🎦🔅🔆💯🔠🔡🔢🔣🔤🅰🆎🅱🆑🆒🆓ℹ🆔Ⓜ🆕🆖🅾🆗🅿🆘🆙🆚🈁🈂🈷🈶🈯🉐🈹🈚🈲🉑🈸🈴🈳㊗㊙🈺🈵▪▫◻◼◽◾⬛⬜🔶🔷🔸🔹🔺🔻💠🔲🔳⚪⚫🔴🔵♈♉♊♋♌♍♎♏♐♑♒♓⛎💘❤💓💔💕💖💗💙💚💛💜💝💞💟❣🌿🚧💒☎📟💽⬆↗➡↘⬇↙⬅↖↕↔↩↪⤴⤵🔃🔄🔙🔚🔛🔜🔝🔀🔁🔂▶⏩◀⏪🔼⏫🔽⏬📱📶📳📴♻🏧🚮🚰♿🚹🚺🚻🚼🚾⚠🚸⛔🚫🚳🚭🚯🚱🚷🔞</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>数字符号</h2>
+            <div class="symbols">① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇ ⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛ ㊀ ㊁ ㊂ ㊃ ㊄ ㊅ ㊆ ㊇ ㊈ ㊉ ㈠ ㈡ ㈢ ㈣ ㈤ ㈥ ㈦ ㈧ ㈨ ㈩ № ½ ⅓ ⅔ ¼ ¾ ⅛ ⅜ ⅝ ⅞</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>希腊数字</h2>
+            <div class="symbols">Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ Ⅺ Ⅻ ⅰ ⅱ ⅲ ⅳ ⅴ ⅵ ⅶ ⅷ ⅸ ⅹ ⅺ ⅻ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>月份符号</h2>
+            <div class="symbols">㋀ ㋁ ㋂ ㋃ ㋄ ㋅ ㋆ ㋇ ㋈ ㋉ ㋊ ㋋</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>日期符号</h2>
+            <div class="symbols">㏠ ㏡ ㏢ ㏣ ㏤ ㏥ ㏦ ㏧ ㏨ ㏩ ㏪ ㏫ ㏬ ㏭ ㏮ ㏯ ㏰ ㏱ ㏲ ㏳ ㏴ ㏵ ㏶ ㏷ ㏸ ㏹ ㏺ ㏻ ㏼ ㏽ ㏾</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>时间符号</h2>
+            <div class="symbols">㍘ ㍙ ㍚ ㍛ ㍜ ㍝ ㍞ ㍟ ㍠ ㍡ ㍢ ㍣ ㍤ ㍥ ㍦ ㍧ ㍨ ㍩ ㍪ ㍫ ㍬ ㍭ ㍮ ㍯ ㍰</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>特殊中文字符</h2>
+            <div class="symbols">㊐ ㊊ ㊎ ㊍ ㊌ ㊋ ㊏ ㊑ ㊒ ㊓ ㊔ ㊕ ㊖ ㊗ ㊘ ㊜ ㊝ ㊞ ㊟ ㊠ ㊡㊢ ㊩ ㊪ ㊫ ㊬ ㊭ ㊮ ㊯ ㊰ ㊙ ㊚ ㊛ ㊣ ㊤ ㊥ ㊦ ㊧ ㊨ 囍 ㈱ ㍿ 卐 卍 ォミ灬 彡 ツ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>音乐符号</h2>
+            <div class="symbols">♩ ♪ ♫ ♬ ¶ ♭ ♯ ♮ ∮ ‖ § Ψ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>英文字母符号</h2>
+            <div class="symbols">⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>大写数字</h2>
+            <div class="symbols">零 壹 贰 叁 肆 伍 陆 柒 捌 玖 佰 仟 万 亿</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>天气符号</h2>
+            <div class="symbols">晴：☀☼♨ 多云：☁☂ 夜晚：☽☾ 雪：❄❅❆☃</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>单位符号</h2>
+            <div class="symbols">版权符号© ® 温度符号℃ ℉ 性别符号♂ ♀ 平方米符号㎡ ℗ Ω ㏎ ￼ ㎎ ㎏ ㎜ ㎝ ㎞ ㎡ ㏄ ㏎ ㏑ ㏒ ㏕ ℡ % ‰ °′″ ￠ ℅</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>货币符号</h2>
+            <div class="symbols">人民币符号￥ ¥ 港元符号HK$ 或 HKD 美元符号$ 日元符号 全型日元标记￥日元记¥(和人民币符号一样，日元单位日文写法：円) 欧元符号€ 英镑符号￡ 其他₴$₰¢₤₳₲₪₵₣₱฿¤₡₮₭₩ރ₢₥₫₦zł﷼₠₧₯₨Kčर₹ƒ₸￠</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>表格符号</h2>
+            <div class="symbols">┏ ┳ ┓┌ ┬ ┐╔ ╦ ╗╓ ╥ ╖╒ ╤ ╕╭ ╮╱ ╲ ─│┱ ┲ ╃ ╄ ┣ ╋ ┫├ ┼ ┤╠ ╬ ╣╟ ╫ ╢╞ ╪ ╡╰ ╯╲ ╱ ━　┇┅ ┋ ┗ ┻ ┛└ ┴ ┘╚ ╩ ╝╙ ╨ ╜╘ ╧ ╛═║　︴ ﹏ ﹋ ﹌</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>米字符号</h2>
+            <div class="symbols">✱ ✲ ✳ ❃ ✾ ✽ ✼ ✻ ✺ ✹ ✸ ✷ ✶ ✵ ✴ ❄ ❅ ❆ ❇ ❈ ❉ ❊ ❋ ✱</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>心形符号</h2>
+            <div class="symbols">❤♡♥❥♠♣♤ღ❣</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>星星符号</h2>
+            <div class="symbols">★☆✡✦✧✩✪✫✬✭✮✯✰</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>对号错号符号</h2>
+            <div class="symbols">对号☑✓✔√ 错号☓☒✘ㄨ✕✖✗</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>方形符号</h2>
+            <div class="symbols">❏❐❑❒▏▐░▒▓▔▕■□▢▣▤▥▦▧▨▩▪▫▬▭▮▯ˍ∎⊞⊟⊠⊡⋄▱◆◇◈◧◨◩◪◫◙ ◘ ▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ ▉ ▊▋█ ▌▍▎▰</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>圆形符号</h2>
+            <div class="symbols">⊙●○◎◕¤☪❂✪☻☼Θ⊖⊘⊕⊚⊛⊜⊝◉◌◍◐◑◒◓◔⊗◖◗◯</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>三角符号</h2>
+            <div class="symbols">◤◥◄►▶◀◣◢▲▼ ▸◂▴▾△▽▷◁⊿▻◅▵▿▹◃∆◬◭◮∇☢</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>八卦符号</h2>
+            <div class="symbols">乾☰兑☱离☲震☳巽☴坎☵艮☶坤☷ ☯</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>标点符号</h2>
+            <div class="symbols">。，、：∶；‘’“”〝〞ˆˇ﹕︰﹔﹖﹑·¨.¸;´？！～—｜‖＂〃｀@﹫¡¿﹏﹋︴々﹟#﹩$﹠&﹪%﹡﹢×﹦‐￣¯―﹨˜﹍﹎＿-~（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」【】︵︷︿︹︽_︶︸﹀︺︾ˉ﹂﹄︼﹁﹃︻▲●□…→</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>中文拼音符号</h2>
+            <div class="symbols">ā á ǎ à ō ó ǒ ò ē é ě è ī í ǐ ì ū ú ǔ ù ǖ ǘ ǚ ǜ ü ê ɑ  ń ň ǹ ɡ ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>日文符号</h2>
+            <div class="symbols">ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひび ぴ ふ ぶ ぷ へ べ ぺ ほ ぼ ぽ ま み む め も ゃ や ゅ ゆ ょ よ ら り る れ ろ ゎ わ ゐ ゑ を ん ゔ ゕ ゖ ゚ ゛ ゜ ゝ ゞ ゟ ゠ ァ ア ィ イ ゥ ウ ェ エ ォ オ カ ガ キ ギ ク グ ケ ゲ コ ゴ サ ザ シ ジ ス ズ セ ゼ ソ ゾ タ ダ チ ヂ ッ ツ ヅ テ デ ト ド ナ ニ ヌ ネ ノ ハ バ パ ヒ ビ ピ フ ブ プ ヘ ベ ペ ホ ボ ポ マ ミ ム メ モ ャ ヤ ュ ユ ョ ヨ ラ リ ル レ ロ ヮ ワ ヰ ヱ ヲ ン ヴ ヵ ヶ ヷ ヸ ヹ ヺ ・ ー ヽ ヾ ヿ ㍿</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>韩文符号</h2>
+            <div class="symbols">ㄱㄲㄳㄴㄵㄶㄷㄸㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅃㅄㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅥ ㅦ ㅧ ㅨ ㅩ ㅪ ㅫ ㅬ ㅭ ㅮ ㅯ ㅰ ㅱ ㅲ ㅳ ㅴ ㅵ ㅶ ㅷ ㅸ ㅹ ㅺ ㅻ ㅼ ㅽ ㅾ ㅿ ㆀ ㆁ ㆂ ㆃ ㆄ ㆅ ㆆ ㆇ ㆈ ㆉ ㆊ</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>俄文符号</h2>
+            <div class="symbols">А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы ЬЭЮЯ а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>箭头符号</h2>
+            <div class="symbols">←↑→↓↙↘↖↗↰↱↲↳↴↵↶↺↻↷➝⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙ ⇚⇛↯↹↔↕⇦⇧⇨⇩➫➬➩➪➭➮➯➱⏎➜➡➥➦➧➨➷➸➻➼➽➸➹➳➤➟➲➢➣➞ ⇪➚➘➙➛➺⇞⇟⇠⇡⇢⇣⇤⇥↜↝♐➴➵➶↼↽↾↿⇀⇁⇂⇃↞↟↠↡↢↣↤↪↫↬↭↮↯↩⇜⇝ ↸↚↛↥↦↧↨</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>更多图形符号</h2>
+            <div class="symbols">✐✎✏✑✒✍✉✁✂✃✄✆✉☎☏☢☠☣✈☜☞☝✍☚☛☟✌♤♧♡♢♠♣♥♦☀☁☂❄☃♨웃유❖☽☾☪✿♂♀✪✯☭➳卍卐√×■◆●○◐◑✙☺☻❀⚘♔♕♖♗♘♙♚♛♜♝♞♟♧♡♂♀♠♣♥❤⊙◎☺☻☼▧▨♨◐◑↔↕▪▒◊◦▣▤▥▦▩◘◈◇♬♪♩♭♪の★☆→あぃ￡Ю〓§♤♥▶¤✲❈✿✲❈➹☀☂☁【】┱┲❣✚✪✣✤✥✦❉❥❦❧❃❂❁❀✄☪☣☢☠☭ღ▶▷◀◁☀☁☂☃☄★☆☇☈⊙☊☋☌☍ⓛⓞⓥⓔ╬∴☀☆∷﹌の★◎▶☺☻►◄▧▨♨◐◑↔↕↘▀▄█▌◦☼♪の☆→♧ぃ￡❤▒▬♦◊◦♠♣▣۰•❤•۰►◄▧▨♨▪▫☼♦⊙●○①⊕◎Θ⊙¤㊣★☆♀◆◇◣◢◥▲▼△▽⊿◤◥✐✌✍✡☜☞⊙◎♥♡▪▫☼♦▐░▒▬♦◊◘◙◦☼♠♣▣▤▥▦▩◘◙◈✄☪☣☢☠☪♈ºº₪¤큐«»™♂✿♥</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>表情符号</h2>
+            <div class="symbols">☺ ☻ ｡◕‿◕｡ ｡◕‿◕｡ ◕‿-｡　◉◞◟◉ ⊙‿⊙　⊙▂⊙　⊙０⊙　⊙︿⊙　⊙ω⊙　⊙﹏⊙　⊙△⊙　⊙▽⊙ ∩▂∩　∩０∩　∩︿∩　∩ω∩　∩﹏∩　∩△∩　∩▽∩ ●▂●　　●０●　　●︿●　　●ω●　　●﹏●　　●△● 　●▽● ∪▂∪　∪０∪　∪︿∪　∪ω∪　∪﹏∪　∪△∪　∪▽∪ ≧▂≦　≧０≦　≧︿≦　≧ω≦　≧﹏≦　≧△≦　≧▽≦ ＞▂＜　＞０＜　＞︿＜　＞ω＜　＞﹏＜　＞△＜　＞▽＜ ╯▂╰　╯０╰　╯︿╰　╯ω╰　╯﹏╰　╯△╰　╯▽╰ ＋▂＋　＋０＋　＋︿＋　＋ω＋　＋﹏＋ ＋△＋　＋▽＋ ˋ▂ˊ　ˋ０ˊ　ˋ︿ˊ　ˋωˊ　ˋ﹏ˊ　ˋ△ˊ　ˋ▽ˊ ˇ▂ˇ　ˇ０ˇ　ˇ︿ˇ　ˇωˇ　ˇ﹏ˇ　　ˇ△ˇ　ˇ▽ˇ ˙▂˙　˙０˙　˙︿˙　˙ω˙　˙﹏˙　˙△˙　˙▽˙ ≡(▔﹏▔)≡ ⊙﹏⊙∥∣° ˋ︿ˊ﹀-# ╯︿╰﹀ (=‵′=) <(‵^′)> (ˉ▽ˉ；)　(-__-)b　＼　＿　／ ￣□￣｜｜ ------(˙<>˙)/------ <(""“O”""> (‵▽′)ψ（°ο°）~ @　? (人)? (＊?↓˙＊) (O ^ ~ ^ O) [>/<]　↓。υ。↓ (；°○° ) ( > c < )</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>网名符号</h2>
+            <div class="symbols">艹 丶 灬 丨 彡 丿 丬 巛 o 氵刂 卩 s 宀 卩　刂　　阝　肀　忄冫　丿　氵　彡　丬 丨 丩 丬丶 丷 丿 乀 乁 乂 乄 乆 乛 亅 亠 亻 冂 冫 冖 凵 刂 辶 釒 钅 阝 飠 牜 饣卩 卪 厸 厶 厽 孓 宀 巛 巜 彳 廴 彡 彐 彳 忄 扌 攵 氵灬 爫 犭 疒 癶 礻 糹 纟 罒 罓 耂 艹 虍 訁 覀 兦 亼 亽 亖 亗 吂 凸 凹 卝 卍 卐 匸 皕 旡 玊 尐 幵</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>希腊字母</h2>
+            <div class="symbols">Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω α β γ δ ε ζ ν ξ ο π ρ σ η θ ι κ λ μ τ υ φ χ ψ ω</div>
+        </div>
+        
+        <div class="symbol-group">
+            <h2>数学符号</h2>
+            <div class="symbols">±×÷﹢﹣±/= ∥∠ ≌ ∽ ≦ ≧ ≒﹤﹥ ≈ ≡ ≠ = ≤ ≥ < > ≮ ≯ ∷ ∶ ∫ ∮ ∝ ∞ ∧ ∨ ∑ ∏ ∪ ∩ ∈ ∵ ∴ ⊥ ∥ ∠ ⌒ ⊙ √∟⊿ ㏒ ㏑ % ‰</div>
+        </div>
     </div>
 </body>
 </html>
+    
