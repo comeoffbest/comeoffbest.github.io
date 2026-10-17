@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>特殊符号大全（附 Unicode 码位 · 全量展开版）</title>
+<title>特殊符号大全（Unicode + 十进制双码位）</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;background:#f4f5fb;color:#2b2f3a}
 
-header{background:linear-gradient(135deg,#6d5df6,#8f7bff 55%,#b39dff);color:#fff;padding:40px 16px 28px;text-align:center}
+header{background:linear-gradient(135deg,#6d5df6,#8f7bff 55%,#b39dff);color:#fff;padding:36px 16px 24px;text-align:center}
 header h1{font-size:1.7rem;letter-spacing:.05em}
 header p{opacity:.92;margin-top:8px;font-size:.92rem}
-#search{margin-top:18px;width:90%;max-width:440px;padding:10px 18px;border:none;border-radius:999px;font-size:.95rem;outline:none;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+#search{margin-top:16px;width:90%;max-width:440px;padding:10px 18px;border:none;border-radius:999px;font-size:.95rem;outline:none;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.legend{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;font-size:.84rem}
+.legend span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:4px 12px;border-radius:999px}
 
 nav{position:sticky;top:0;z-index:9;background:rgba(255,255,255,.93);backdrop-filter:blur(6px);border-bottom:1px solid #eceef8;padding:8px 12px;display:flex;gap:8px;overflow-x:auto}
 nav a{flex:none;font-size:.82rem;color:#55507a;text-decoration:none;background:#f2f0ff;border-radius:999px;padding:4px 13px;transition:.15s}
@@ -28,10 +30,15 @@ main{max-width:1080px;margin:0 auto;padding:24px 16px 60px;display:flex;flex-dir
 .symbols b{color:#5b54c9;font-weight:600}
 .tip{color:#8a90a3;font-size:.88rem}
 
-.tok{cursor:pointer;border-radius:6px;padding:1px 3px;transition:background .15s}
-.tok:hover{background:#efeaff}
-.sym{font-size:1.12em}
-.code{color:#9aa0b4;font-family:Consolas,Menlo,monospace;font-size:.8em}
+/* ===== 三段式可点击 token ===== */
+.sym-tok{cursor:pointer;border-radius:6px;padding:1px 3px;font-size:1.12em;transition:background .15s}
+.sym-tok:hover{background:#efeaff}
+.hex,.dec{cursor:pointer;border-radius:5px;padding:1px 4px;font-family:Consolas,Menlo,monospace;font-size:.78em;transition:background .15s}
+.hex{color:#6c79c9}
+.hex:hover{background:#e5ebff;text-decoration:underline}
+.dec{color:#c97b4a}
+.dec:hover{background:#ffe9dd;text-decoration:underline}
+.sep{color:#c9cde0;font-size:.78em;margin:0 2px}
 
 table.methods{width:100%;border-collapse:collapse;font-size:.92rem;line-height:1.7}
 table.methods th,table.methods td{border:1px solid #e4e6f2;padding:8px 12px;text-align:left;vertical-align:top}
@@ -47,8 +54,13 @@ footer{text-align:center;color:#9aa0b4;font-size:.82rem;padding:0 16px 34px;line
 
 <header>
   <h1>✨ 特殊符号大全</h1>
-  <p>24 大类 · 1300+ 符号全量展开 · 附 Unicode 码位 · 点击任意「符号(码位)」即可复制</p>
-  <input id="search" type="text" placeholder="🔍 搜索分类或码位，如：箭头 / 2611 / ☑">
+  <p>24 大类 · 1300+ 符号 · 双码位（Unicode / 十进制）· 三段点击即复制</p>
+  <input id="search" type="text" placeholder="🔍 搜索分类或码位，如：箭头 / 2611 / 9745 / ☑">
+  <div class="legend">
+    <span>🖱️ 点【符号】→ 复制符号</span>
+    <span>点【十六进制】→ 复制 Unicode 码</span>
+    <span>点【十进制】→ 复制十进制码</span>
+  </div>
 </header>
 
 <nav>
@@ -284,27 +296,29 @@ footer{text-align:center;color:#9aa0b4;font-size:.82rem;padding:0 16px 34px;line
             <h2>附、快速输入方法（Word / Windows）</h2>
             <table class="methods">
               <tr><th>方法</th><th>操作</th><th>适用</th></tr>
-              <tr><td>Alt + X</td><td>输入四位码位（如 2611）后立即按 Alt+X</td><td>Word / WPS</td></tr>
-              <tr><td>Alt + 小键盘</td><td>按住 Alt，小键盘输入十进制：☑=9745、☐=9633、✓=10003、★=9733</td><td>Windows 任意程序</td></tr>
+              <tr><td>Alt + X</td><td>输入四位十六进制码（如 2611）后立即按 Alt+X</td><td>Word / WPS</td></tr>
+              <tr><td>Alt + 小键盘</td><td>按住 Alt，小键盘输入十进制码：如 ☑ 的十进制 9745</td><td>Windows 任意程序</td></tr>
               <tr><td>Win + .</td><td>快捷键打开系统 emoji 面板</td><td>Win10 / 11</td></tr>
               <tr><td>字符映射表</td><td>运行 charmap，按区块查找并复制</td><td>Windows</td></tr>
               <tr><td>Word 符号库</td><td>插入 → 符号 → 其他符号（“子集”下拉定位区块）</td><td>Word</td></tr>
               <tr><td>复选框控件</td><td>开发工具 → 复选框内容控件（可交互勾选）</td><td>Word 正式表单</td></tr>
             </table>
+            <span class="tip">💡 本页每个符号均为「符号(十六进制|十进制)」三段结构，三段均可点击复制。</span>
         </div>
 
 </main>
 
 <footer>
 💡 显示效果取决于系统字体：建议安装 “Segoe UI Symbol” / “Noto Sans Symbols 2”，手机端个别符号可能显示为方框。<br>
-含修饰符的组合序列（肤色、ZWJ 家庭组合等）仅列基础符，可用 Win + . 面板输入完整变体。<br>
-点击任意「符号(码位)」即可复制；顶部搜索框支持按分类名、符号或码位（如 2611）过滤。
+三段点击：点【符号】复制符号 · 点【十六进制】复制 Unicode 码 · 点【十进制】复制十进制码（Alt+小键盘输入用）。<br>
+顶部搜索框支持按分类名、符号或任一码位（如 2611 / 9745）过滤。
 </footer>
 
 <div id="toast"></div>
 
 <script>
-// 1) 把文本中的 “符号(码位)” 自动包装成可点击 token（不破坏已有标签）
+// 1) 把文本中的 “符号(十六进制)” 自动解析为三段可点击 token：
+//    符号 | 十六进制 | 十进制（由十六进制自动换算）
 function tokenize(root){
   Array.from(root.childNodes).forEach(function(node){
     if(node.nodeType===Node.TEXT_NODE){
@@ -313,10 +327,21 @@ function tokenize(root){
         if(!part)return;
         var m=part.match(/^(\S+?)\(([0-9A-Fa-f]{4,5})\)$/);
         if(m){
-          var tok=document.createElement('span');tok.className='tok';tok.title='点击复制';
-          var s=document.createElement('span');s.className='sym';s.textContent=m[1];
-          var c=document.createElement('span');c.className='code';c.textContent='('+m[2]+')';
-          tok.appendChild(s);tok.appendChild(c);frag.appendChild(tok);
+          var sym=m[1], hex=m[2].toUpperCase();
+          var dec=parseInt(hex,16).toString(10);          // 十六进制 → 十进制
+          var s=document.createElement('span');
+          s.className='sym-tok';s.title='点击复制符号';s.textContent=sym;
+          var h=document.createElement('span');
+          h.className='hex';h.title='点击复制 Unicode 码（十六进制）';h.textContent=hex;
+          var d=document.createElement('span');
+          d.className='dec';d.title='点击复制十进制码（Alt+小键盘用）';d.textContent=dec;
+          var sep=document.createElement('span');sep.className='sep';sep.textContent='|';
+          frag.appendChild(s);
+          frag.appendChild(document.createTextNode('('));
+          frag.appendChild(h);
+          frag.appendChild(sep);
+          frag.appendChild(d);
+          frag.appendChild(document.createTextNode(')'));
         }else{
           frag.appendChild(document.createTextNode(part));
         }
@@ -347,13 +372,15 @@ function toast(msg){
   toastTimer=setTimeout(function(){t.classList.remove('show');},1400);
 }
 document.addEventListener('click',function(e){
-  var tok=e.target.closest('.tok');
-  if(tok){
-    copyText(tok.textContent).then(function(){toast('✅ 已复制 '+tok.textContent);});
-  }
+  var d=e.target.closest('.dec');
+  if(d){copyText(d.textContent).then(function(){toast('✅ 已复制十进制码：'+d.textContent);});return;}
+  var h=e.target.closest('.hex');
+  if(h){copyText(h.textContent).then(function(){toast('✅ 已复制 Unicode 码：'+h.textContent);});return;}
+  var s=e.target.closest('.sym-tok');
+  if(s){copyText(s.textContent).then(function(){toast('✅ 已复制符号：'+s.textContent);});}
 });
 
-// 3) 搜索过滤（按分类名 / 符号 / 码位）
+// 3) 搜索过滤（按分类名 / 符号 / 两种码位）
 document.getElementById('search').addEventListener('input',function(e){
   var q=e.target.value.trim().toLowerCase();
   document.querySelectorAll('.symbol-group').forEach(function(g){
