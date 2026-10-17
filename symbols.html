@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特殊符号大全（附 Unicode 码位）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;background:#f4f5fb;color:#2b2f3a}
+
+/* ===== 头部与搜索 ===== */
+header{background:linear-gradient(135deg,#6d5df6,#8f7bff 55%,#b39dff);color:#fff;padding:40px 16px 28px;text-align:center}
+header h1{font-size:1.7rem;letter-spacing:.05em}
+header p{opacity:.92;margin-top:8px;font-size:.92rem}
+#search{margin-top:18px;width:90%;max-width:440px;padding:10px 18px;border:none;border-radius:999px;font-size:.95rem;outline:none;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+
+/* ===== 锚点导航 ===== */
+nav{position:sticky;top:0;z-index:9;background:rgba(255,255,255,.93);backdrop-filter:blur(6px);border-bottom:1px solid #eceef8;padding:8px 12px;display:flex;gap:8px;overflow-x:auto}
+nav a{flex:none;font-size:.82rem;color:#55507a;text-decoration:none;background:#f2f0ff;border-radius:999px;padding:4px 13px;transition:.15s}
+nav a:hover{background:#7c6cf8;color:#fff}
+
+/* ===== 分组卡片（案例结构）===== */
+main{max-width:1080px;margin:0 auto;padding:24px 16px 60px;display:flex;flex-direction:column;gap:18px}
+.symbol-group{background:#fff;border-radius:14px;padding:20px 24px;border:1px solid #eceef8;box-shadow:0 2px 10px rgba(80,70,180,.07);scroll-margin-top:70px}
+.symbol-group h2{font-size:1.12rem;color:#3f3d56;padding-bottom:10px;margin-bottom:12px;border-bottom:2px solid #f0edff;display:flex;align-items:center;gap:9px}
+.symbol-group h2::before{content:"";flex:none;width:6px;height:20px;border-radius:3px;background:linear-gradient(#7c6cf8,#b39dff)}
+
+.symbols{white-space:pre-line;overflow-wrap:anywhere;line-height:2.15;font-size:1.02rem;letter-spacing:.02em;
+  font-family:"Segoe UI Symbol","Noto Sans Symbols 2","Noto Sans Symbols","Apple Symbols","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","PingFang SC","Microsoft YaHei",sans-serif}
+.symbols b{color:#5b54c9;font-weight:600}
+.tip{color:#8a90a3;font-size:.88rem}
+
+/* 可点击的 “符号(码位)” */
+.tok{cursor:pointer;border-radius:6px;padding:1px 3px;transition:background .15s}
+.tok:hover{background:#efeaff}
+.sym{font-size:1.12em}
+.code{color:#9aa0b4;font-family:Consolas,Menlo,monospace;font-size:.8em}
+
+/* 输入方法表格 */
+table.methods{width:100%;border-collapse:collapse;font-size:.92rem;line-height:1.7}
+table.methods th,table.methods td{border:1px solid #e4e6f2;padding:8px 12px;text-align:left;vertical-align:top}
+table.methods th{background:#f6f5ff;color:#3f3d56;white-space:nowrap}
+
+footer{text-align:center;color:#9aa0b4;font-size:.82rem;padding:0 16px 34px;line-height:1.9}
+
+/* 复制成功提示 */
+#toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(16px);background:#333;color:#fff;padding:8px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:.25s;z-index:99}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✨ 特殊符号大全</h1>
+  <p>16 大类 · 近千个符号 · 附 Unicode 码位 · 点击任意「符号(码位)」即可复制</p>
+  <input id="search" type="text" placeholder="🔍 搜索分类或码位，如：箭头 / 2611 / ☑">
+</header>
+
+<nav>
+  <a href="#g1">勾选对错</a><a href="#g2">爱心花色</a><a href="#g3">星朵雪花</a><a href="#g4">几何图形</a>
+  <a href="#g5">箭头</a><a href="#g6">编号序号</a><a href="#g7">数学度量</a><a href="#g8">货币</a>
+  <a href="#g9">徽章杂项</a><a href="#g10">天象八卦</a><a href="#g11">音乐</a><a href="#g12">中文部首</a>
+  <a href="#g13">外文字母</a><a href="#g14">标点</a><a href="#g15">线框</a><a href="#g16">Emoji</a>
+  <a href="#methods">输入方法</a>
+</nav>
+
+<main>
+
+<div class="symbol-group" id="g1">
+            <h2>一、勾选 / 对错类（表单首选）⭐</h2>
+            <div class="symbols">☐(2610) ☑(2611) ☒(2612) ☓(2613)　✓(2713) ✔(2714) √(221A)　✕(2715) ✖(2716) ✗(2717) ✘(2718) ×(00D7) ㄨ(3128)　✅(2705) ❌(274C) ❎(274E) ⭕(2B55)
+<span class="tip">正式表格勾选用 ☐/☑/☒ 最规范；ㄨ 是注音符号借用。</span></div>
+        </div>
+
+<div class="symbol-group" id="g2">
+            <h2>二、爱心 · 扑克花色</h2>
+            <div class="symbols"><b>爱心：</b>♥(2665) ♡(2661) ❤(2764) ❥(2765) ❣(2763) ❦(2766) ❧(2767) ღ(10E6)
+<b>扑克花色：</b>♠(2660) ♡(2661) ♢(2662) ♣(2663) ♤(2664) ♥(2665) ♦(2666) ♧(2667)</div>
+        </div>
+
+<div class="symbol-group" id="g3">
+            <h2>三、星星 · 花朵 · 雪花</h2>
+            <div class="symbols"><b>星星：</b>★(2605) ☆(2606) ✡(2721) ✦(2726) ✧(2727) ✩(2729) ✪(272A) ✫(272B) ✬(272C) ✭(272D) ✮(272E) ✯(272F) ✰(2730)
+<b>米字花：</b>✱(2731) ✲(2732) ✳(2733) ✴(2734) ✵(2735) ✶(2736) ✷(2737) ✸(2738) ✹(2739) ✺(273A)
+<b>花朵：</b>✿(273F) ❀(2740) ❁(2741) ✾(273E) ❃(2743) ❂(2742) ❉(2749) ❊(274A) ❈(2748) ❋(274B) ✻(273B) ✼(273C) ✽(273D) ⚘(2698)
+<b>雪花：</b>❄(2744) ❅(2745) ❆(2746) ☃(2603)</div>
+        </div>
+
+<div class="symbol-group" id="g4">
+            <h2>四、几何图形</h2>
+            <div class="symbols"><b>方形：</b>■(25A0) □(25A1) ▢(25A2) ▣(25A3) ▤(25A4) ▥(25A5) ▦(25A6) ▧(25A7) ▨(25A8) ▩(25A9) ▪(25AA) ▫(25AB) ▬(25AC) ▭(25AD) ▮(25AE) ▯(25AF) ◼(25FC) ◻(25FB) ◽(25FD) ◾(25FE) ⬛(2B1B) ⬜(2B1C) ❏(274F) ❐(2750) ❑(2751) ❒(2752)
+<b>圆形：</b>●(25CF) ○(25CB) ◉(25C9) ◍(25CD) ◎(25CE) ⊙(2299) ◌(25CC) ◐(25D0) ◑(25D1) ◒(25D2) ◓(25D3) ◔(25D4) ◕(25D5) ◯(25EF) ◦(25E6) •(2022) ·(00B7) ◘(25D8) ◙(25D9) ⊕(2295) ⊖(2296) ⊗(2297) ⊘(2298) ◊(25CA)
+<b>三角：</b>▲(25B2) △(25B3) ▴(25B4) ▵(25B5) ▶(25B6) ▷(25B7) ▸(25B8) ▹(25B9) ►(25BA) ▻(25BB) ▼(25BC) ▽(25BD) ▾(25BE) ▿(25BF) ◀(25C0) ◁(25C1) ◂(25C2) ◃(25C3) ◄(25C4) ◅(25C5) ◢(25E2) ◣(25E3) ◤(25E4) ◥(25E5) ∆(2206) ∇(2207) ⊿(22BF)
+<b>色块条：</b>█(2588) ▉(2589) ▊(258A) ▋(258B) ▌(258C) ▍(258D) ▎(258E) ▏(258F) ▐(2590) ▀(2580) ▁(2581) ▂(2582) ▃(2583) ▄(2584) ▅(2585) ▆(2586) ▇(2587) ░(2591) ▒(2592) ▓(2593) ▔(2594) ▕(2595)</div>
+        </div>
+
+<div class="symbol-group" id="g5">
+            <h2>五、箭头（区块 U+2190–21FF）</h2>
+            <div class="symbols"><b>单线：</b>←(2190) ↑(2191) →(2192) ↓(2193) ↔(2194) ↕(2195) ↖(2196) ↗(2197) ↘(2198) ↙(2199) ↹(21B9)
+<b>双线：</b>⇐(21D0) ⇑(21D1) ⇒(21D2) ⇓(21D3) ⇔(21D4) ⇕(21D5) ⇖(21D6) ⇗(21D7) ⇘(21D8) ⇙(21D9) ⇚(21DA) ⇛(21DB)
+<b>转弯：</b>↩(21A9) ↪(21AA) ↰(21B0) ↱(21B1) ↲(21B2) ↳(21B3) ↵(21B5) ↶(21B6) ↷(21B7) ↺(21BA) ↻(21BB) ↯(21AF) ⏎(23CE)
+<b>长尾：</b>➔(2794) ➘(2798) ➙(2799) ➚(279A) ➛(279B) ➜(279C) ➝(279D) ➞(279E) ➟(279F) ➠(27A0) ➡(27A1) ➢(27A2) ➣(27A3) ➤(27A4) ➥(27A5) ➦(27A6) ➧(27A7) ➨(27A8) ➩(27A9) ➪(27AA) ➫(27AB) ➬(27AC) ➭(27AD) ➮(27AE) ➯(27AF) ➱(27B1) ➲(27B2) ➳(27B3) ➴(27B4) ➵(27B5) ➶(27B6) ➷(27B7) ➸(27B8) ➹(27B9) ➺(27BA) ➻(27BB) ➼(27BC) ➽(27BD) ➾(27BE)
+<b>粗体：</b>⬅(2B05) ⬆(2B06) ⬇(2B07) ⤴(2924) ⤵(2925) ➕(2795) ➖(2796) ➗(2797)</div>
+        </div>
+
+<div class="symbol-group" id="g6">
+            <h2>六、编号序号</h2>
+            <div class="symbols"><b>圈数字：</b>⓪(24EA) ①(2460) ②(2461) ③(2462) ④(2463) ⑤(2464) ⑥(2465) ⑦(2466) ⑧(2467) ⑨(2468) ⑩(2469) ⑪(246A) ⑫(246B) ⑬(246C) ⑭(246D) ⑮(246E) ⑯(246F) ⑰(2470) ⑱(2471) ⑲(2472) ⑳(2473)
+<b>括号数字：</b>⑴(2474) ⑵(2475) ⑶(2476) ⑷(2477) ⑸(2478) ⑹(2479) ⑺(247A) ⑻(247B) ⑼(247C) ⑽(247D) ⑾(247E) ⑿(247F) ⒀(2480) ⒁(2481) ⒂(2482) ⒃(2483) ⒄(2484) ⒅(2485) ⒆(2486) ⒇(2487)
+<b>带点数字：</b>⒈(2488) ⒉(2489) ⒊(248A) ⒋(248B) ⒌(248C) ⒍(248D) ⒎(248E) ⒏(248F) ⒐(2490) ⒑(2491) ⒒(2492) ⒓(2493) ⒔(2494) ⒕(2495) ⒖(2496) ⒗(2497) ⒘(2498) ⒙(2499) ⒚(249A) ⒛(249B)
+<b>黑圈数字：</b>❶(2776) ❷(2777) ❸(2778) ❹(2779) ❺(277A) ❻(277B) ❼(277C) ❽(277D) ❾(277E) ❿(277F) ⓫(24EB) ⓬(24EC) ⓭(24ED) ⓮(24EE) ⓯(24EF) ⓰(24F0) ⓱(24F1) ⓲(24F2) ⓳(24F3) ⓴(24F4)
+<b>圈汉字：</b>㊀(3280) ㊁(3281) ㊂(3282) ㊃(3283) ㊄(3284) ㊅(3285) ㊆(3286) ㊇(3287) ㊈(3288) ㊉(3289)
+<b>括号汉字：</b>㈠(3220) ㈡(3221) ㈢(3222) ㈣(3223) ㈤(3224) ㈥(3225) ㈦(3226) ㈧(3227) ㈨(3228) ㈩(3229)
+<b>罗马大写：</b>Ⅰ(2160) Ⅱ(2161) Ⅲ(2162) Ⅳ(2163) Ⅴ(2164) Ⅵ(2165) Ⅶ(2166) Ⅷ(2167) Ⅸ(2168) Ⅹ(2169) Ⅺ(216A) Ⅻ(216B)
+<b>罗马小写：</b>ⅰ(2170) ⅱ(2171) ⅲ(2172) ⅳ(2173) ⅴ(2174) ⅵ(2175) ⅶ(2176) ⅷ(2177) ⅸ(2178) ⅹ(2179) ⅺ(217A) ⅻ(217B)
+<b>罗马扩展：</b>Ⅼ(216C) Ⅽ(216D) Ⅾ(216E) Ⅿ(216F) ⅼ(217C) ⅽ(217D) ⅾ(217E) ⅿ(217F)
+<b>圈字母大写：</b>Ⓐ(24B6) Ⓑ(24B7) Ⓒ(24B8) Ⓓ(24B9) Ⓔ(24BA) Ⓕ(24BB) Ⓖ(24BC) Ⓗ(24BD) Ⓘ(24BE) Ⓙ(24BF) Ⓚ(24C0) Ⓛ(24C1) Ⓜ(24C2) Ⓝ(24C3) Ⓞ(24C4) Ⓟ(24C5) Ⓠ(24C6) Ⓡ(24C7) Ⓢ(24C8) Ⓣ(24C9) Ⓤ(24CA) Ⓥ(24CB) Ⓦ(24CC) Ⓧ(24CD) Ⓨ(24CE) Ⓩ(24CF)
+<b>圈字母小写：</b>ⓐ(24D0) ⓑ(24D1) ⓒ(24D2) ⓓ(24D3) ⓔ(24D4) ⓕ(24D5) ⓖ(24D6) ⓗ(24D7) ⓘ(24D8) ⓙ(24D9) ⓚ(24DA) ⓛ(24DB) ⓜ(24DC) ⓝ(24DD) ⓞ(24DE) ⓟ(24DF) ⓠ(24E0) ⓡ(24E1) ⓢ(24E2) ⓣ(24E3) ⓤ(24E4) ⓥ(24E5) ⓦ(24E6) ⓧ(24E7) ⓨ(24E8) ⓩ(24E9)
+<b>括号字母：</b>⒜(249C) ⒝(249D) ⒞(249E) ⒟(249F) ⒠(24A0) ⒡(24A1) ⒢(24A2) ⒣(24A3) ⒤(24A4) ⒥(24A5) ⒦(24A6) ⒧(24A7) ⒨(24A8) ⒩(24A9) ⒪(24AA) ⒫(24AB) ⒬(24AC) ⒭(24AD) ⒮(24AE) ⒯(24AF) ⒰(24B0) ⒱(24B1) ⒲(24B2) ⒳(24B3) ⒴(24B4) ⒵(24B5)
+<b>其他：</b>№(2116) ㈱(3231) ㊙(3299) ㊗(3297) ㊣(32A3)</div>
+        </div>
+
+<div class="symbol-group" id="g7">
+            <h2>七、数学 · 度量 · 分数</h2>
+            <div class="symbols"><b>运算：</b>±(00B1) ×(00D7) ÷(00F7) ≠(2260) ≈(2248) ≃(2243) ≅(2245) ≌(224C) ≒(2252) ≡(2261) ≤(2264) ≥(2265) ≦(2266) ≧(2267) ≮(226E) ≯(226F) ∝(221D) ∞(221E) √(221A) ∑(2211) ∏(220F) ∫(222B) ∬(222C) ∭(222D) ∮(222E) ∈(2208) ∉(2209) ∋(220B) ∪(222A) ∩(2229) ∧(2227) ∨(2228) ∵(2235) ∴(2234) ∶(2236) ∷(2237) ⊥(22A5) ∥(2225) ∠(2220) ⌒(2312) ∟(221F)
+<b>分数：</b>⅟(215F) ½(00BD) ⅓(2153) ⅔(2154) ¼(00BC) ¾(00BE) ⅕(2155) ⅖(2156) ⅗(2157) ⅘(2158) ⅙(2159) ⅚(215A) ⅛(215B) ⅜(215C) ⅝(215D) ⅞(215E)
+<b>度与单位：</b>°(00B0) ′(2032) ″(2033) ℃(2103) ℉(2109) ‰(2030) ‱(2031) ㎎(338E) ㎏(338F) ㎜(339C) ㎝(339D) ㎞(339E) ㎡(33A1) ㏄(33C4) ㏈(33C8) ㏊(33CA) ㏎(33CE) ㏑(33D1) ㏒(33D2) ㏕(33D5) ℡(2121) ℗(2117) ℠(2120) ™(2122) ©(00A9) ®(00AE) §(00A7) ¶(00B6) Ω(03A9)</div>
+        </div>
+
+<div class="symbol-group" id="g8">
+            <h2>八、货币符号</h2>
+            <div class="symbols">$(0024) ¢(00A2) £(00A3) ¤(00A4) ¥(00A5) ￥(FFE5) ￠(FFE0) ￡(FFE1) €(20AC) ₠(20A0) ₡(20A1) ₢(20A2) ₣(20A3) ₤(20A4) ₥(20A5) ₦(20A6) ₧(20A7) ₨(20A8) ₩(20A9) ₪(20AA) ₫(20AB) ₭(20AD) ₮(20AE) ₯(20AF) ₰(20B0) ₱(20B1) ₲(20B2) ₳(20B3) ₴(20B4) ₵(20B5) ₸(20B8) ₹(20B9) ₺(20BA) ₼(20BC) ₽(20BD) ₿(20BF) ฿(0E3F) ៛(17DB) ރ(0783) ﷼(FDFC)
+<span class="tip">￥(FFE5) 与 ¥(00A5) 分别为全角 / 半角人民币（日元）符号。</span></div>
+        </div>
+
+<div class="symbol-group" id="g9">
+            <h2>九、皇冠 · 棋子 · 性别 · 宗教 · 杂项</h2>
+            <div class="symbols"><b>国际象棋：</b>♔(2654) ♕(2655) ♖(2656) ♗(2657) ♘(2658) ♙(2659) ♚(265A) ♛(265B) ♜(265C) ♝(265D) ♞(265E) ♟(265F)
+<b>性别：</b>♂(2642) ♀(2640) ☿(263F)
+<b>宗教文化：</b>✚(271A) ✛(271B) ✜(271C) ✝(271D) ✞(271E) ✟(271F) ✠(2720) ☩(2629) ☨(2628) ☫(262B) ☬(262C) ☥(2625) ☸(2638) ☯(262F) ☪(262A) ✡(2721) ☮(262E) ☭(262D) 卍(534D) 卐(5350) ⚕(2695) ⚚(269A) ☤(2624)
+<b>警示：</b>☠(2620) ☢(2622) ☣(2623) ⚠(26A0)
+<b>常用杂项：</b>☎(260E) ☏(260F) ✆(2706) ✉(2709) ✈(2708) ⚓(2693) ⚑(2691) ⚐(2690) ☕(2615) ⚙(2699) ⚡(26A1) ☂(2602) ☔(2614) ⌘(2318)
+<b>手势 / 工具：</b>☜(261C) ☞(261E) ☝(261D) ☟(261F) ✌(270C) ✍(270D) ✐(2710) ✑(2711) ✒(2712) ✎(270E) ✏(270F) ✁(2701) ✂(2702) ✃(2703) ✄(2704)
+<b>表情：</b>☺(263A) ☻(263B) ☹(2639) ツ(30C4) ヅ(30C5) シ(30B7) ت(062A) 웃(C6C3) 유(C720)
+<span class="tip">웃 / 유 是韩文音节，常被当作“笑 / 哭”颜文字使用。</span></div>
+        </div>
+
+<div class="symbol-group" id="g10">
+            <h2>十、天气 · 天体 · 星座 · 八卦</h2>
+            <div class="symbols"><b>天气：</b>☀(2600) ☁(2601) ☂(2602) ☃(2603) ☄(2604) ☇(2607) ☈(2608) ☼(263C) ☽(263D) ☾(263E)
+<b>天体：</b>☉(2609) ☊(260A) ☋(260B) ☌(260C) ☍(260D)
+<b>星座：</b>♈(2648) ♉(2649) ♊(264A) ♋(264B) ♌(264C) ♍(264D) ♎(264E) ♏(264F) ♐(2650) ♑(2651) ♒(2652) ♓(2653) ⛎(26CE)
+<b>八卦：</b>☰(2630) ☱(2631) ☲(2632) ☳(2633) ☴(2634) ☵(2635) ☶(2636) ☷(2637) ☯(262F)</div>
+        </div>
+
+<div class="symbol-group" id="g11">
+            <h2>十一、音乐符号</h2>
+            <div class="symbols">♩(2669) ♪(266A) ♫(266B) ♬(266C) ♭(266D) ♮(266E) ♯(266F) ‖(2016) ∮(222E) Ψ(03A8)</div>
+        </div>
+
+<div class="symbol-group" id="g12">
+            <h2>十二、中文字符 · 部首 · 特殊汉字</h2>
+            <div class="symbols"><b>注音符号：</b>ㄅ(3105) ㄆ(3106) ㄇ(3107) ㄈ(3108) ㄉ(3109) ㄊ(310A) ㄋ(310B) ㄌ(310C) ㄍ(310D) ㄎ(310E) ㄏ(310F) ㄐ(3110) ㄑ(3111) ㄒ(3112) ㄓ(3113) ㄔ(3114) ㄕ(3115) ㄖ(3116) ㄗ(3117) ㄘ(3118) ㄙ(3119) ㄚ(311A) ㄛ(311B) ㄜ(311C) ㄝ(311D) ㄞ(311E) ㄟ(311F) ㄠ(3120) ㄡ(3121) ㄢ(3122) ㄣ(3123) ㄤ(3124) ㄥ(3125) ㄦ(3126) ㄧ(3127) ㄨ(3128) ㄩ(3129)
+<b>部首 / 网名常用：</b>丶(4E36) 丨(4E28) 丿(4E3F) 亠(4EA0) 亻(4EBB) 冫(51AB) 冖(5196) 凵(51F5) 刂(5202) 卩(5369) 厶(53B6) 彳(5F70) 彡(5F61) 宀(5B80) 巛(5DDB) 忄(5FC4) 扌(624C) 氵(6C3F) 灬(706C) 爫(723B) 犭(72AD) 疒(7592) 辶(8FB6) 礻(793B) 艹(8279) 虍(864D) 覀(8980) 阝(961D) 钅(9485) 饣(9963) 凸(51F8) 凹(51F9)
+<b>古字 / 叠字：</b>々(3005) 〆(3006) 〇(3007) 廿(5EFF) 卅(5345) 卌(534C) 曱(66F1) 甴(7534) 氺(6C3A) 弍(5F0D) 弎(5F0E) 弐(5F10) 旡(65E1) 玊(738A) 尐(5C10) 幵(5E75) 兀(5140) 囍(56CD) ㍿(337F)
+<b>大写数字：</b>零(96F6) 壹(58F9) 贰(8D30) 叁(53C1) 肆(8086) 伍(4F0D) 陆(9646) 柒(67D2) 捌(634C) 玖(7396) 拾(62FE) 佰(4F70) 仟(4EDF)
+<b>月份 / 时间 / 日期：</b>㋀(32C0)～㋋(32CB)；㍘(32D0)～㍰(32E8)；㏠(33E0)～㏾(33FE)
+<span class="tip">ㄨ(3128) 常被借用作“叉号”。</span></div>
+        </div>
+
+<div class="symbol-group" id="g13">
+            <h2>十三、外文字母</h2>
+            <div class="symbols"><b>希腊大写：</b>Α(0391) Β(0392) Γ(0393) Δ(0394) Ε(0395) Ζ(0396) Η(0397) Θ(0398) Ι(0399) Κ(039A) Λ(039B) Μ(039C) Ν(039D) Ξ(039E) Ο(039F) Π(03A0) Ρ(03A1) Σ(03A3) Τ(03A4) Υ(03A5) Φ(03A6) Χ(03A7) Ψ(03A8) Ω(03A9)
+<b>希腊小写：</b>α(03B1) β(03B2) γ(03B3) δ(03B4) ε(03B5) ζ(03B6) η(03B7) θ(03B8) ι(03B9) κ(03BA) λ(03BB) μ(03BC) ν(03BD) ξ(03BE) ο(03BF) π(03C0) ρ(03C1) σ(03C3) τ(03C4) υ(03C5) φ(03C6) χ(03C7) ψ(03C8) ω(03C9)
+<b>西里尔（区块 U+0400–04FF）：</b>А(0410) Б(0411) В(0412) Г(0413) Д(0414) Е(0415) Ё(0401) Ж(0416) З(0417) И(0418) Й(0419) К(041A) Л(041B) М(041C) Н(041D) О(041E) П(041F) Р(0420) С(0421) Т(0422) У(0423) Ф(0424) Х(0425) Ц(0426) Ч(0427) Ш(0428) Щ(0429) Ъ(042A) Ы(042B) Ь(042C) Э(042D) Ю(042E) Я(042F)
+<b>拼音声调：</b>ā(0101) á(00E1) ǎ(01CE) à(00E0) ō(014D) ó(00F3) ǒ(01D2) ò(00F2) ē(0113) é(00E9) ě(011B) è(00E8) ī(012B) í(00ED) ǐ(01D0) ì(00EC) ū(016B) ú(00FA) ǔ(01D4) ù(00F9) ǖ(01D6) ǘ(01D8) ǚ(01DA) ǜ(01DC) ü(00FC) ê(00EA) ń(0144) ň(0148) ǹ(01F9) ɡ(0261)
+<b>花体 / 空心字母：</b>ℂ(2102) ℍ(210D) ℕ(2115) ℙ(2119) ℚ(211A) ℝ(211D) ℤ(2124) ℬ(212C) ℰ(2130) ℱ(2131) ℋ(210B) ℐ(2110) ℒ(2112) ℳ(2133) ℘(2118) ℛ(211B) ℭ(212D) ℌ(210C) ℑ(2111) ℜ(211C) ℨ(2128) ℯ(214E) ℓ(2113) ℊ(210A) ℴ(2134) ℎ(210E)
+<span class="tip">小写西里尔字母码位 = 大写 + 32，如 а(0430)。</span></div>
+        </div>
+
+<div class="symbol-group" id="g14">
+            <h2>十四、标点符号</h2>
+            <div class="symbols"><b>中文标点：</b>。(3002) 、(3001) 〃(3003) 〇(3007) 〓(3013) 〒(3012) 〝(301D) 〞(301E) 〰(3030) 〽(303C) 〜(301C) 《(300A) 》(300B) 〈(3008) 〉(3009) 「(300C) 」(300D) 『(300E) 』(300F) 【(3010) 】(3011) 〔(3014) 〕(3015) 〖(301A) 〗(301B)
+<b>全角：</b>！(FF01) ？(FF1F) ：(FF1A) ；(FF1B) ，(FF0C) ．(FF0E) （(FF08) ）(FF09) ［(FF3B) ］(FF3D) ｛(FF5B) ｝(FF5D) ～(FF5E) ＋(FF0B) －(FF0D) ＊(FF0A) ／(FF0F) ＠(FF20) ＃(FF03) ％(FF05) ＆(FF06)
+<b>西文：</b>…(2026) •(2022) ·(00B7) ※(203B) —(2014) –(2013) ‖(2016) ¡(00A1) ¿(00BF) «(00AB) »(00BB) ‹(2039) ›(203A) “(201C) ”(201D) ‘(2018) ’(2019)</div>
+        </div>
+
+<div class="symbol-group" id="g15">
+            <h2>十五、制表线框（区块 U+2500–257F）</h2>
+            <div class="symbols"><b>细线：</b>─(2500) ━(2501) │(2502) ┃(2503) ┄(2504) ┅(2505) ┆(2506) ┇(2507) ┈(2508) ┉(2509) ┊(250A) ┋(250B)
+<b>单线框：</b>┌(250C) ┐(2510) └(2514) ┘(2518) ├(251C) ┤(2524) ┬(252C) ┴(2534) ┼(253C) ╭(256D) ╮(256E) ╯(256F) ╰(2570) ╱(2571) ╲(2572) ╳(2573)
+<b>双线框：</b>═(2550) ║(2551) ╔(2554) ╗(2557) ╚(255A) ╝(255D) ╠(2560) ╣(2563) ╦(2566) ╩(2569) ╬(256C)
+<span class="tip">双线框适合画表格表头，╭ ╮ ╯ ╰ 可画圆角框。</span></div>
+        </div>
+
+<div class="symbol-group" id="g16">
+            <h2>十六、Emoji 表情（5 位码位）</h2>
+            <div class="symbols"><b>区块：</b>U+1F300–1F5FF（图形）｜U+1F600–1F64F（表情）｜U+1F680–1F6FF（交通）｜U+1F900–1F9FF（补充）
+<b>常用：</b>😀(1F600) 😂(1F602) 😊(1F60A) 😍(1F60D) 😎(1F60E) 🤔(1F914) 👍(1F44D) 👏(1F44F) 🙏(1F64F) ❤(2764) 💔(1F494) 💯(1F4AF) 🔥(1F525) 💧(1F4A7) 💡(1F4A1) ⭐(2B50) 🌟(1F31F) ✨(2728) 🌙(1F319) 🌹(1F339) 🌸(1F338) 🍀(1F340) 🍎(1F34E) ☕(2615) 🎂(1F382) 🎉(1F389) 🎁(1F381) 🏆(1F3C6) ⚽(26BD) 🏀(1F3C0) 🚗(1F697) 🚀(1F680) ✈(2708) 💰(1F4B0) 📱(1F4F1) ⏰(23F0)
+<span class="tip">5 位码符号在旧版 Word 中 Alt+X 可能无效，可用系统 emoji 面板（Win + .）输入。</span></div>
+        </div>
+
+<div class="symbol-group" id="methods">
+            <h2>附、快速输入方法（Word / Windows）</h2>
+            <table class="methods">
+              <tr><th>方法</th><th>操作</th><th>适用</th></tr>
+              <tr><td>Alt + X</td><td>输入四位码位（如 2611）后立即按 Alt+X</td><td>Word / WPS</td></tr>
+              <tr><td>Alt + 小键盘</td><td>按住 Alt，小键盘输入十进制：☑=9745、☐=9633、✓=10003、★=9733</td><td>Windows 任意程序</td></tr>
+              <tr><td>Win + .</td><td>快捷键打开系统 emoji 面板</td><td>Win10 / 11</td></tr>
+              <tr><td>字符映射表</td><td>运行 charmap，按区块查找并复制</td><td>Windows</td></tr>
+              <tr><td>Word 符号库</td><td>插入 → 符号 → 其他符号（“子集”下拉定位区块）</td><td>Word</td></tr>
+              <tr><td>复选框控件</td><td>开发工具 → 复选框内容控件（可交互勾选）</td><td>Word 正式表单</td></tr>
+            </table>
+        </div>
+
+</main>
+
+<footer>
+💡 显示效果取决于系统字体：建议安装 “Segoe UI Symbol” / “Noto Sans Symbols 2”，手机端个别符号可能显示为方框。<br>
+点击任意「符号(码位)」即可复制；顶部搜索框支持按分类名、符号或码位（如 2611）过滤。
+</footer>
+
+<div id="toast"></div>
+
+<script>
+// 1) 把文本中的 “符号(码位)” 自动包装成可点击 token（不破坏已有标签）
+function tokenize(root){
+  Array.from(root.childNodes).forEach(function(node){
+    if(node.nodeType===Node.TEXT_NODE){
+      var frag=document.createDocumentFragment();
+      node.textContent.split(/(\S+?\([0-9A-Fa-f]{4,5}\))/).forEach(function(part){
+        if(!part)return;
+        var m=part.match(/^(\S+?)\(([0-9A-Fa-f]{4,5})\)$/);
+        if(m){
+          var tok=document.createElement('span');tok.className='tok';tok.title='点击复制';
+          var s=document.createElement('span');s.className='sym';s.textContent=m[1];
+          var c=document.createElement('span');c.className='code';c.textContent='('+m[2]+')';
+          tok.appendChild(s);tok.appendChild(c);frag.appendChild(tok);
+        }else{
+          frag.appendChild(document.createTextNode(part));
+        }
+      });
+      node.replaceWith(frag);
+    }else if(node.nodeType===Node.ELEMENT_NODE && !node.matches('table,script,style')){
+      tokenize(node);
+    }
+  });
+}
+document.querySelectorAll('.symbols').forEach(function(el){tokenize(el);});
+
+// 2) 点击复制（含降级方案）
+function copyText(t){
+  if(navigator.clipboard && window.isSecureContext){return navigator.clipboard.writeText(t);}
+  return new Promise(function(res){
+    var ta=document.createElement('textarea');ta.value=t;
+    ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');ta.remove();res();
+  });
+}
+var toastTimer;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove('show');},1400);
+}
+document.addEventListener('click',function(e){
+  var tok=e.target.closest('.tok');
+  if(tok){
+    copyText(tok.textContent).then(function(){toast('✅ 已复制 '+tok.textContent);});
+  }
+});
+
+// 3) 搜索过滤（按分类名 / 符号 / 码位）
+document.getElementById('search').addEventListener('input',function(e){
+  var q=e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.symbol-group').forEach(function(g){
+    g.style.display=(!q || g.textContent.toLowerCase().includes(q))?'':'none';
+  });
+});
+</script>
+</body>
+</html>
+
