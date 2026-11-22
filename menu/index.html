@@ -1,0 +1,774 @@
+﻿<html lang="zh-CN" data-dt-sniffer-enabled="0" data-immersive-translate-page-theme="light"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1">
+<title>菜谱 · 古风电子书</title>
+<style>
+  /* ============ 全局 ============ */
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{
+    width:100%;height:100%;overflow:hidden;
+    font-family:"PingFang SC","Microsoft YaHei","STKaiti","KaiTi",serif;
+    color:#f5e6d3;user-select:none;
+    /* 关键：阻止安卓浏览器消费水平滑动手势（边缘后退/前进），
+       并禁用过滚回弹，保证 touchmove 完整传递到 StPageFlip */
+    touch-action:pan-y;
+    overscroll-behavior:none;
+    -webkit-user-select:none;
+  }
+  body{
+    background:
+      radial-gradient(ellipse at 50% 0%, #3a1f15 0%, #1a0d08 60%, #0a0503 100%);
+    position:relative;
+  }
+  /* 木质纹理叠加 */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(0,0,0,0.04) 0,
+        rgba(0,0,0,0.04) 1px,
+        transparent 1px,
+        transparent 4px),
+      repeating-linear-gradient(0deg,
+        rgba(255,200,150,0.015) 0,
+        rgba(255,200,150,0.015) 2px,
+        transparent 2px,
+        transparent 6px);
+    z-index:0;
+  }
+  /* 角落柔光 */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 100%);
+    z-index:0;
+  }
+
+  /* ============ 顶部标题栏 ============ */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:64px;
+    display:flex;align-items:center;justify-content:center;
+    z-index:10;pointer-events:none;
+  }
+  .topbar .title{
+    font-family:"STKaiti","KaiTi",serif;
+    font-size:30px;letter-spacing:14px;font-weight:700;
+    color:#e9c97a;
+    text-shadow:
+      0 0 18px rgba(233,201,122,0.45),
+      0 2px 0 rgba(0,0,0,0.5);
+    display:flex;align-items:center;gap:18px;
+  }
+  .topbar .title .deco{
+    width:60px;height:1px;
+    background:linear-gradient(90deg,transparent,#e9c97a,transparent);
+    position:relative;
+  }
+  .topbar .title .deco::before{
+    content:"";position:absolute;left:50%;top:50%;
+    width:6px;height:6px;background:#e9c97a;border-radius:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 8px #e9c97a;
+  }
+
+  /* ============ 书本舞台 ============ */
+  .stage{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    padding:80px 20px 110px 20px;
+    z-index:1;
+    touch-action:none;       /* 舞台区域完全交给 PageFlip 处理 */
+  }
+  #book{
+    box-shadow:
+      0 30px 60px rgba(0,0,0,0.7),
+      0 10px 30px rgba(0,0,0,0.5);
+    border-radius:2px;
+    touch-action:none;       /* 关键：让 StPageFlip 完整接收 touch 事件 */
+  }
+  #book *{ touch-action:none; }
+  /* 书本下方阴影底座 */
+  .stage::after{
+    content:"";position:absolute;bottom:90px;left:50%;
+    transform:translateX(-50%);
+    width:60%;max-width:1100px;height:30px;
+    background:radial-gradient(ellipse at center,
+      rgba(0,0,0,0.6) 0%, transparent 70%);
+    filter:blur(8px);
+    z-index:-1;
+  }
+
+  /* StPageFlip 内的图片占满 */
+  #book .page{
+    background:#fff;
+  }
+  #book .page img,
+  #book img{
+    width:100%;height:100%;display:block;object-fit:cover;
+    /* 关键：图片本身不拦截触摸，避免长按弹出菜单/拖拽中断翻页 */
+    pointer-events:none;
+    -webkit-user-drag:none;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+
+  /* ============ 加载层 ============ */
+  .loader{
+    position:fixed;inset:0;z-index:100;
+    background:#1a0d08;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transition:opacity 0.8s ease,visibility 0.8s ease;
+  }
+  .loader.hide{opacity:0;visibility:hidden;}
+  .loader .seal{
+    width:96px;height:96px;border-radius:8px;
+    background:linear-gradient(135deg,#c8102e,#7a0a1a);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff8e7;font-family:"STKaiti","KaiTi",serif;
+    font-size:54px;font-weight:700;
+    box-shadow:0 0 25px rgba(200,16,46,0.5),inset 0 0 0 3px rgba(255,248,231,0.3);
+    animation:sealPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes sealPulse{
+    0%,100%{transform:scale(1) rotate(-2deg);}
+    50%{transform:scale(1.06) rotate(2deg);}
+  }
+  .loader .loader-text{
+    margin-top:24px;color:#e9c97a;letter-spacing:6px;font-size:14px;
+  }
+  .loader .progress{
+    margin-top:16px;width:240px;height:3px;background:rgba(233,201,122,0.15);
+    border-radius:3px;overflow:hidden;
+  }
+  .loader .progress span{
+    display:block;height:100%;width:0%;
+    background:linear-gradient(90deg,#c8102e,#e9c97a);
+    transition:width 0.3s ease;
+  }
+
+  /* ============ 底部控制栏 ============ */
+  .controls{
+    position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+    z-index:20;
+    display:flex;align-items:center;gap:6px;
+    padding:8px 12px;
+    background:linear-gradient(180deg,rgba(35,18,10,0.85),rgba(20,10,5,0.95));
+    border:1px solid rgba(233,201,122,0.25);
+    border-radius:50px;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    box-shadow:0 8px 30px rgba(0,0,0,0.6);
+  }
+  .ctrl-btn{
+    width:38px;height:38px;border:none;background:transparent;
+    color:#e9c97a;cursor:pointer;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    transition:all 0.2s ease;
+  }
+  .ctrl-btn:hover{
+    background:rgba(233,201,122,0.15);
+    transform:translateY(-1px);
+  }
+  .ctrl-btn:active{transform:translateY(0) scale(0.95);}
+  .ctrl-btn svg{width:18px;height:18px;fill:currentColor;}
+  .ctrl-btn.active{color:#fff;background:rgba(200,16,46,0.5);}
+
+  .page-info{
+    color:#e9c97a;font-size:13px;
+    min-width:90px;text-align:center;
+    letter-spacing:1px;font-family:Georgia,serif;
+    padding:0 6px;
+  }
+  .page-info input{
+    background:transparent;border:none;color:#fff;
+    width:38px;text-align:right;font-size:13px;font-family:Georgia,serif;
+    outline:none;
+  }
+  .page-info input::-webkit-outer-spin-button,
+  .page-info input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .ctrl-divider{
+    width:1px;height:22px;background:rgba(233,201,122,0.2);
+    margin:0 4px;
+  }
+
+  /* ============ 缩略图侧边栏 ============ */
+  .thumbs{
+    position:fixed;top:0;right:-340px;bottom:0;width:320px;
+    background:rgba(18,9,4,0.96);
+    border-left:1px solid rgba(233,201,122,0.25);
+    z-index:50;
+    transition:right 0.4s cubic-bezier(.4,0,.2,1);
+    display:flex;flex-direction:column;
+    box-shadow:-10px 0 40px rgba(0,0,0,0.5);
+  }
+  .thumbs.open{right:0;}
+  .thumbs-header{
+    padding:18px 20px;
+    border-bottom:1px solid rgba(233,201,122,0.15);
+    display:flex;align-items:center;justify-content:space-between;
+    color:#e9c97a;font-size:14px;letter-spacing:4px;
+  }
+  .thumbs-close{
+    background:none;border:none;color:#e9c97a;font-size:22px;cursor:pointer;
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+  }
+  .thumbs-close:hover{background:rgba(233,201,122,0.15);}
+  .thumbs-grid{
+    flex:1;overflow-y:auto;padding:12px;
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+    scrollbar-width:thin;scrollbar-color:#5a3a2a transparent;
+  }
+  .thumbs-grid::-webkit-scrollbar{width:6px;}
+  .thumbs-grid::-webkit-scrollbar-thumb{background:#5a3a2a;border-radius:3px;}
+  .thumb-item{
+    position:relative;cursor:pointer;border-radius:3px;overflow:hidden;
+    border:2px solid transparent;transition:all 0.2s ease;
+    background:#2a1a10;
+    /* 关键：容器自身要有明确比例（W:H = 1:1.414），
+       否则图片懒加载时容器高度为 0，永远不会被视为可见，导致缩略图加载失败 */
+    aspect-ratio:1/1.414;
+    min-height:120px;
+  }
+  .thumb-item img{
+    width:100%;height:100%;display:block;
+    object-fit:cover;
+    pointer-events:none;       /* 让点击落在容器上，便于绑事件 */
+  }
+  .thumb-item .thumb-num{
+    position:absolute;bottom:0;left:0;right:0;
+    background:linear-gradient(0deg,rgba(0,0,0,0.85),transparent);
+    color:#e9c97a;font-size:10px;text-align:center;padding:6px 0 3px;
+    font-family:Georgia,serif;
+  }
+  .thumb-item:hover{border-color:rgba(233,201,122,0.5);transform:scale(1.03);}
+  .thumb-item.current{border-color:#c8102e;box-shadow:0 0 12px rgba(200,16,46,0.6);}
+
+  /* ============ 提示 ============ */
+  .hint{
+    position:fixed;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    color:#e9c97a;font-size:13px;letter-spacing:3px;
+    background:rgba(0,0,0,0.7);padding:14px 28px;border-radius:30px;
+    border:1px solid rgba(233,201,122,0.3);
+    z-index:200;pointer-events:none;
+    opacity:0;transition:opacity 0.4s ease;
+  }
+  .hint.show{opacity:1;}
+
+  /* ============ 响应式 ============ */
+  @media (max-width:640px){
+    .topbar{height:50px;}
+    .topbar .title{font-size:22px;letter-spacing:10px;}
+    .topbar .title .deco{width:36px;}
+    .stage{padding:60px 8px 90px 8px;}
+    .controls{gap:2px;padding:6px 8px;bottom:12px;}
+    .ctrl-btn{width:34px;height:34px;}
+    .ctrl-btn svg{width:16px;height:16px;}
+    .page-info{font-size:12px;min-width:70px;}
+    .thumbs{width:260px;right:-280px;}
+  }
+</style>
+<style type="text/css">.stf__parent {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  transform: translateZ(0);
+
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+}
+
+.sft__wrapper {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stf__parent canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.stf__block {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  perspective: 2000px;
+}
+
+.stf__item {
+  display: none;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.stf__outerShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stf__innerShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stf__hardShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stf__hardInnerShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}</style></head>
+<body><x-extension-ui id="dt-sniffer-bubble" style="position: fixed !important; z-index: 2147483640 !important; left: 0px !important; top: 0px !important; width: 0px !important; height: 0px !important; overflow: visible !important; pointer-events: none !important; margin: 0px !important; padding: 0px !important;"></x-extension-ui>
+
+<!-- 加载层 -->
+<div class="loader hide" id="loader">
+  <div class="seal">谱</div>
+  <div class="loader-text">古卷舒展 · 请稍候</div>
+  <div class="progress"><span id="progressBar" style="width: 100%;"></span></div>
+</div>
+
+<!-- 顶部标题 -->
+<div class="topbar">
+  <div class="title">
+    <span class="deco"></span>
+    <span>菜&nbsp;&nbsp;谱</span>
+    <span class="deco"></span>
+  </div>
+</div>
+
+<!-- 书本舞台 -->
+<div class="stage">
+  <div id="book" class="stf__parent" style="min-width: 280px; min-height: 400px; width: 100%; max-width: 2400px; display: block;"><div class="stf__wrapper --landscape" style="padding-bottom: 70.7283%;"><div class="stf__block"><img src="pages/page_001.jpg" alt="第1页" draggable="false" class="stf__item --hard --right --simple" style="position: absolute; display: block; height: 1058px; left: 748px; top: 0px; width: 747.933px; z-index: 1;"><img src="pages/page_002.jpg" alt="第2页" draggable="false" class="stf__item --left --simple --hard" style="display: none;"><img src="pages/page_003.jpg" alt="第3页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_004.jpg" alt="第4页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_005.jpg" alt="第5页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_006.jpg" alt="第6页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_007.jpg" alt="第7页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_008.jpg" alt="第8页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_009.jpg" alt="第9页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_010.jpg" alt="第10页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_011.jpg" alt="第11页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_012.jpg" alt="第12页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_013.jpg" alt="第13页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_014.jpg" alt="第14页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_015.jpg" alt="第15页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_016.jpg" alt="第16页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_017.jpg" alt="第17页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_018.jpg" alt="第18页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_019.jpg" alt="第19页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_020.jpg" alt="第20页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_021.jpg" alt="第21页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_022.jpg" alt="第22页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_023.jpg" alt="第23页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_024.jpg" alt="第24页" draggable="false" class="stf__item --soft --left" style="display: none;"><img src="pages/page_025.jpg" alt="第25页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_026.jpg" alt="第26页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_027.jpg" alt="第27页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_028.jpg" alt="第28页" draggable="false" class="stf__item --soft --left --simple" style="display: none;"><img src="pages/page_029.jpg" alt="第29页" draggable="false" class="stf__item --soft --right --simple" style="display: none;"><img src="pages/page_030.jpg" alt="第30页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_031.jpg" alt="第31页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_032.jpg" alt="第32页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_033.jpg" alt="第33页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_034.jpg" alt="第34页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_035.jpg" alt="第35页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_036.jpg" alt="第36页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_037.jpg" alt="第37页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_038.jpg" alt="第38页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_039.jpg" alt="第39页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_040.jpg" alt="第40页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_041.jpg" alt="第41页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_042.jpg" alt="第42页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_043.jpg" alt="第43页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_044.jpg" alt="第44页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_045.jpg" alt="第45页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_046.jpg" alt="第46页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_047.jpg" alt="第47页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_048.jpg" alt="第48页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_049.jpg" alt="第49页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_050.jpg" alt="第50页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_051.jpg" alt="第51页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_052.jpg" alt="第52页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_053.jpg" alt="第53页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_054.jpg" alt="第54页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_055.jpg" alt="第55页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_056.jpg" alt="第56页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_057.jpg" alt="第57页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_058.jpg" alt="第58页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_059.jpg" alt="第59页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_060.jpg" alt="第60页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_061.jpg" alt="第61页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_062.jpg" alt="第62页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_063.jpg" alt="第63页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_064.jpg" alt="第64页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_065.jpg" alt="第65页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_066.jpg" alt="第66页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_067.jpg" alt="第67页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_068.jpg" alt="第68页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_069.jpg" alt="第69页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_070.jpg" alt="第70页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_071.jpg" alt="第71页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_072.jpg" alt="第72页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_073.jpg" alt="第73页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_074.jpg" alt="第74页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_075.jpg" alt="第75页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_076.jpg" alt="第76页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_077.jpg" alt="第77页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_078.jpg" alt="第78页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_079.jpg" alt="第79页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_080.jpg" alt="第80页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_081.jpg" alt="第81页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_082.jpg" alt="第82页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_083.jpg" alt="第83页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_084.jpg" alt="第84页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_085.jpg" alt="第85页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_086.jpg" alt="第86页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_087.jpg" alt="第87页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_088.jpg" alt="第88页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_089.jpg" alt="第89页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_090.jpg" alt="第90页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_091.jpg" alt="第91页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_092.jpg" alt="第92页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_093.jpg" alt="第93页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_094.jpg" alt="第94页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_095.jpg" alt="第95页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_096.jpg" alt="第96页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_097.jpg" alt="第97页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_098.jpg" alt="第98页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_099.jpg" alt="第99页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_100.jpg" alt="第100页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_101.jpg" alt="第101页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_102.jpg" alt="第102页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_103.jpg" alt="第103页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_104.jpg" alt="第104页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_105.jpg" alt="第105页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_106.jpg" alt="第106页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_107.jpg" alt="第107页" draggable="false" class="stf__item --soft" style="display: none;"><img src="pages/page_108.jpg" alt="第108页" draggable="false" class="stf__item --soft" style="display: none;"><div class="stf__outerShadow" style="display: none;"></div>
+             <div class="stf__innerShadow" style="display: none;"></div>
+             <div class="stf__hardShadow" style="display: none;"></div>
+             <div class="stf__hardInnerShadow" style="display: none;"></div></div></div></div>
+</div>
+
+<!-- 底部控制栏 -->
+<div class="controls" id="controls">
+  <button class="ctrl-btn" id="btnFirst" title="首页">
+    <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"></path></svg>
+  </button>
+  <button class="ctrl-btn" id="btnPrev" title="上一页 (←)">
+    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
+  </button>
+  <div class="page-info">
+    <input type="number" id="pageInput" min="1" value="1"> / <span id="pageTotal">108</span>
+  </div>
+  <button class="ctrl-btn" id="btnNext" title="下一页 (→)">
+    <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"></path></svg>
+  </button>
+  <button class="ctrl-btn" id="btnLast" title="末页">
+    <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2V6zm-3.5 6L4 6v12l8.5-6z"></path></svg>
+  </button>
+  <div class="ctrl-divider"></div>
+  <button class="ctrl-btn" id="btnThumbs" title="目录">
+    <svg viewBox="0 0 24 24"><path d="M4 6h6v6H4V6zm10 0h6v6h-6V6zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"></path></svg>
+  </button>
+  <button class="ctrl-btn active" id="btnSound" title="翻页音效">
+    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+  </button>
+  <button class="ctrl-btn" id="btnFullscreen" title="全屏">
+    <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"></path></svg>
+  </button>
+</div>
+
+<!-- 缩略图侧边栏 -->
+<div class="thumbs" id="thumbs">
+  <div class="thumbs-header">
+    <span>目&nbsp;&nbsp;录</span>
+    <button class="thumbs-close" id="thumbsClose">×</button>
+  </div>
+  <div class="thumbs-grid" id="thumbsGrid"><div class="thumb-item current" data-idx="0"><img decoding="async" src="pages/thumbs/page_001.jpg" alt="第1页" draggable="false"><div class="thumb-num">1</div></div><div class="thumb-item" data-idx="1"><img decoding="async" src="pages/thumbs/page_002.jpg" alt="第2页" draggable="false"><div class="thumb-num">2</div></div><div class="thumb-item" data-idx="2"><img decoding="async" src="pages/thumbs/page_003.jpg" alt="第3页" draggable="false"><div class="thumb-num">3</div></div><div class="thumb-item" data-idx="3"><img decoding="async" src="pages/thumbs/page_004.jpg" alt="第4页" draggable="false"><div class="thumb-num">4</div></div><div class="thumb-item" data-idx="4"><img decoding="async" src="pages/thumbs/page_005.jpg" alt="第5页" draggable="false"><div class="thumb-num">5</div></div><div class="thumb-item" data-idx="5"><img decoding="async" src="pages/thumbs/page_006.jpg" alt="第6页" draggable="false"><div class="thumb-num">6</div></div><div class="thumb-item" data-idx="6"><img decoding="async" src="pages/thumbs/page_007.jpg" alt="第7页" draggable="false"><div class="thumb-num">7</div></div><div class="thumb-item" data-idx="7"><img decoding="async" src="pages/thumbs/page_008.jpg" alt="第8页" draggable="false"><div class="thumb-num">8</div></div><div class="thumb-item" data-idx="8"><img decoding="async" src="pages/thumbs/page_009.jpg" alt="第9页" draggable="false"><div class="thumb-num">9</div></div><div class="thumb-item" data-idx="9"><img decoding="async" src="pages/thumbs/page_010.jpg" alt="第10页" draggable="false"><div class="thumb-num">10</div></div><div class="thumb-item" data-idx="10"><img decoding="async" src="pages/thumbs/page_011.jpg" alt="第11页" draggable="false"><div class="thumb-num">11</div></div><div class="thumb-item" data-idx="11"><img decoding="async" src="pages/thumbs/page_012.jpg" alt="第12页" draggable="false"><div class="thumb-num">12</div></div><div class="thumb-item" data-idx="12"><img decoding="async" src="pages/thumbs/page_013.jpg" alt="第13页" draggable="false"><div class="thumb-num">13</div></div><div class="thumb-item" data-idx="13"><img decoding="async" src="pages/thumbs/page_014.jpg" alt="第14页" draggable="false"><div class="thumb-num">14</div></div><div class="thumb-item" data-idx="14"><img decoding="async" src="pages/thumbs/page_015.jpg" alt="第15页" draggable="false"><div class="thumb-num">15</div></div><div class="thumb-item" data-idx="15"><img decoding="async" src="pages/thumbs/page_016.jpg" alt="第16页" draggable="false"><div class="thumb-num">16</div></div><div class="thumb-item" data-idx="16"><img decoding="async" src="pages/thumbs/page_017.jpg" alt="第17页" draggable="false"><div class="thumb-num">17</div></div><div class="thumb-item" data-idx="17"><img decoding="async" src="pages/thumbs/page_018.jpg" alt="第18页" draggable="false"><div class="thumb-num">18</div></div><div class="thumb-item" data-idx="18"><img decoding="async" src="pages/thumbs/page_019.jpg" alt="第19页" draggable="false"><div class="thumb-num">19</div></div><div class="thumb-item" data-idx="19"><img decoding="async" src="pages/thumbs/page_020.jpg" alt="第20页" draggable="false"><div class="thumb-num">20</div></div><div class="thumb-item" data-idx="20"><img decoding="async" src="pages/thumbs/page_021.jpg" alt="第21页" draggable="false"><div class="thumb-num">21</div></div><div class="thumb-item" data-idx="21"><img decoding="async" src="pages/thumbs/page_022.jpg" alt="第22页" draggable="false"><div class="thumb-num">22</div></div><div class="thumb-item" data-idx="22"><img decoding="async" src="pages/thumbs/page_023.jpg" alt="第23页" draggable="false"><div class="thumb-num">23</div></div><div class="thumb-item" data-idx="23"><img decoding="async" src="pages/thumbs/page_024.jpg" alt="第24页" draggable="false"><div class="thumb-num">24</div></div><div class="thumb-item" data-idx="24"><img decoding="async" src="pages/thumbs/page_025.jpg" alt="第25页" draggable="false"><div class="thumb-num">25</div></div><div class="thumb-item" data-idx="25"><img decoding="async" src="pages/thumbs/page_026.jpg" alt="第26页" draggable="false"><div class="thumb-num">26</div></div><div class="thumb-item" data-idx="26"><img decoding="async" src="pages/thumbs/page_027.jpg" alt="第27页" draggable="false"><div class="thumb-num">27</div></div><div class="thumb-item" data-idx="27"><img decoding="async" src="pages/thumbs/page_028.jpg" alt="第28页" draggable="false"><div class="thumb-num">28</div></div><div class="thumb-item" data-idx="28"><img decoding="async" src="pages/thumbs/page_029.jpg" alt="第29页" draggable="false"><div class="thumb-num">29</div></div><div class="thumb-item" data-idx="29"><img decoding="async" src="pages/thumbs/page_030.jpg" alt="第30页" draggable="false"><div class="thumb-num">30</div></div><div class="thumb-item" data-idx="30"><img decoding="async" src="pages/thumbs/page_031.jpg" alt="第31页" draggable="false"><div class="thumb-num">31</div></div><div class="thumb-item" data-idx="31"><img decoding="async" src="pages/thumbs/page_032.jpg" alt="第32页" draggable="false"><div class="thumb-num">32</div></div><div class="thumb-item" data-idx="32"><img decoding="async" src="pages/thumbs/page_033.jpg" alt="第33页" draggable="false"><div class="thumb-num">33</div></div><div class="thumb-item" data-idx="33"><img decoding="async" src="pages/thumbs/page_034.jpg" alt="第34页" draggable="false"><div class="thumb-num">34</div></div><div class="thumb-item" data-idx="34"><img decoding="async" src="pages/thumbs/page_035.jpg" alt="第35页" draggable="false"><div class="thumb-num">35</div></div><div class="thumb-item" data-idx="35"><img decoding="async" src="pages/thumbs/page_036.jpg" alt="第36页" draggable="false"><div class="thumb-num">36</div></div><div class="thumb-item" data-idx="36"><img decoding="async" src="pages/thumbs/page_037.jpg" alt="第37页" draggable="false"><div class="thumb-num">37</div></div><div class="thumb-item" data-idx="37"><img decoding="async" src="pages/thumbs/page_038.jpg" alt="第38页" draggable="false"><div class="thumb-num">38</div></div><div class="thumb-item" data-idx="38"><img decoding="async" src="pages/thumbs/page_039.jpg" alt="第39页" draggable="false"><div class="thumb-num">39</div></div><div class="thumb-item" data-idx="39"><img decoding="async" src="pages/thumbs/page_040.jpg" alt="第40页" draggable="false"><div class="thumb-num">40</div></div><div class="thumb-item" data-idx="40"><img decoding="async" src="pages/thumbs/page_041.jpg" alt="第41页" draggable="false"><div class="thumb-num">41</div></div><div class="thumb-item" data-idx="41"><img decoding="async" src="pages/thumbs/page_042.jpg" alt="第42页" draggable="false"><div class="thumb-num">42</div></div><div class="thumb-item" data-idx="42"><img decoding="async" src="pages/thumbs/page_043.jpg" alt="第43页" draggable="false"><div class="thumb-num">43</div></div><div class="thumb-item" data-idx="43"><img decoding="async" src="pages/thumbs/page_044.jpg" alt="第44页" draggable="false"><div class="thumb-num">44</div></div><div class="thumb-item" data-idx="44"><img decoding="async" src="pages/thumbs/page_045.jpg" alt="第45页" draggable="false"><div class="thumb-num">45</div></div><div class="thumb-item" data-idx="45"><img decoding="async" src="pages/thumbs/page_046.jpg" alt="第46页" draggable="false"><div class="thumb-num">46</div></div><div class="thumb-item" data-idx="46"><img decoding="async" src="pages/thumbs/page_047.jpg" alt="第47页" draggable="false"><div class="thumb-num">47</div></div><div class="thumb-item" data-idx="47"><img decoding="async" src="pages/thumbs/page_048.jpg" alt="第48页" draggable="false"><div class="thumb-num">48</div></div><div class="thumb-item" data-idx="48"><img decoding="async" src="pages/thumbs/page_049.jpg" alt="第49页" draggable="false"><div class="thumb-num">49</div></div><div class="thumb-item" data-idx="49"><img decoding="async" src="pages/thumbs/page_050.jpg" alt="第50页" draggable="false"><div class="thumb-num">50</div></div><div class="thumb-item" data-idx="50"><img decoding="async" src="pages/thumbs/page_051.jpg" alt="第51页" draggable="false"><div class="thumb-num">51</div></div><div class="thumb-item" data-idx="51"><img decoding="async" src="pages/thumbs/page_052.jpg" alt="第52页" draggable="false"><div class="thumb-num">52</div></div><div class="thumb-item" data-idx="52"><img decoding="async" src="pages/thumbs/page_053.jpg" alt="第53页" draggable="false"><div class="thumb-num">53</div></div><div class="thumb-item" data-idx="53"><img decoding="async" src="pages/thumbs/page_054.jpg" alt="第54页" draggable="false"><div class="thumb-num">54</div></div><div class="thumb-item" data-idx="54"><img decoding="async" src="pages/thumbs/page_055.jpg" alt="第55页" draggable="false"><div class="thumb-num">55</div></div><div class="thumb-item" data-idx="55"><img decoding="async" src="pages/thumbs/page_056.jpg" alt="第56页" draggable="false"><div class="thumb-num">56</div></div><div class="thumb-item" data-idx="56"><img decoding="async" src="pages/thumbs/page_057.jpg" alt="第57页" draggable="false"><div class="thumb-num">57</div></div><div class="thumb-item" data-idx="57"><img decoding="async" src="pages/thumbs/page_058.jpg" alt="第58页" draggable="false"><div class="thumb-num">58</div></div><div class="thumb-item" data-idx="58"><img decoding="async" src="pages/thumbs/page_059.jpg" alt="第59页" draggable="false"><div class="thumb-num">59</div></div><div class="thumb-item" data-idx="59"><img decoding="async" src="pages/thumbs/page_060.jpg" alt="第60页" draggable="false"><div class="thumb-num">60</div></div><div class="thumb-item" data-idx="60"><img decoding="async" src="pages/thumbs/page_061.jpg" alt="第61页" draggable="false"><div class="thumb-num">61</div></div><div class="thumb-item" data-idx="61"><img decoding="async" src="pages/thumbs/page_062.jpg" alt="第62页" draggable="false"><div class="thumb-num">62</div></div><div class="thumb-item" data-idx="62"><img decoding="async" src="pages/thumbs/page_063.jpg" alt="第63页" draggable="false"><div class="thumb-num">63</div></div><div class="thumb-item" data-idx="63"><img decoding="async" src="pages/thumbs/page_064.jpg" alt="第64页" draggable="false"><div class="thumb-num">64</div></div><div class="thumb-item" data-idx="64"><img decoding="async" src="pages/thumbs/page_065.jpg" alt="第65页" draggable="false"><div class="thumb-num">65</div></div><div class="thumb-item" data-idx="65"><img decoding="async" src="pages/thumbs/page_066.jpg" alt="第66页" draggable="false"><div class="thumb-num">66</div></div><div class="thumb-item" data-idx="66"><img decoding="async" src="pages/thumbs/page_067.jpg" alt="第67页" draggable="false"><div class="thumb-num">67</div></div><div class="thumb-item" data-idx="67"><img decoding="async" src="pages/thumbs/page_068.jpg" alt="第68页" draggable="false"><div class="thumb-num">68</div></div><div class="thumb-item" data-idx="68"><img decoding="async" src="pages/thumbs/page_069.jpg" alt="第69页" draggable="false"><div class="thumb-num">69</div></div><div class="thumb-item" data-idx="69"><img decoding="async" src="pages/thumbs/page_070.jpg" alt="第70页" draggable="false"><div class="thumb-num">70</div></div><div class="thumb-item" data-idx="70"><img decoding="async" src="pages/thumbs/page_071.jpg" alt="第71页" draggable="false"><div class="thumb-num">71</div></div><div class="thumb-item" data-idx="71"><img decoding="async" src="pages/thumbs/page_072.jpg" alt="第72页" draggable="false"><div class="thumb-num">72</div></div><div class="thumb-item" data-idx="72"><img decoding="async" src="pages/thumbs/page_073.jpg" alt="第73页" draggable="false"><div class="thumb-num">73</div></div><div class="thumb-item" data-idx="73"><img decoding="async" src="pages/thumbs/page_074.jpg" alt="第74页" draggable="false"><div class="thumb-num">74</div></div><div class="thumb-item" data-idx="74"><img decoding="async" src="pages/thumbs/page_075.jpg" alt="第75页" draggable="false"><div class="thumb-num">75</div></div><div class="thumb-item" data-idx="75"><img decoding="async" src="pages/thumbs/page_076.jpg" alt="第76页" draggable="false"><div class="thumb-num">76</div></div><div class="thumb-item" data-idx="76"><img decoding="async" src="pages/thumbs/page_077.jpg" alt="第77页" draggable="false"><div class="thumb-num">77</div></div><div class="thumb-item" data-idx="77"><img decoding="async" src="pages/thumbs/page_078.jpg" alt="第78页" draggable="false"><div class="thumb-num">78</div></div><div class="thumb-item" data-idx="78"><img decoding="async" src="pages/thumbs/page_079.jpg" alt="第79页" draggable="false"><div class="thumb-num">79</div></div><div class="thumb-item" data-idx="79"><img decoding="async" src="pages/thumbs/page_080.jpg" alt="第80页" draggable="false"><div class="thumb-num">80</div></div><div class="thumb-item" data-idx="80"><img decoding="async" src="pages/thumbs/page_081.jpg" alt="第81页" draggable="false"><div class="thumb-num">81</div></div><div class="thumb-item" data-idx="81"><img decoding="async" src="pages/thumbs/page_082.jpg" alt="第82页" draggable="false"><div class="thumb-num">82</div></div><div class="thumb-item" data-idx="82"><img decoding="async" src="pages/thumbs/page_083.jpg" alt="第83页" draggable="false"><div class="thumb-num">83</div></div><div class="thumb-item" data-idx="83"><img decoding="async" src="pages/thumbs/page_084.jpg" alt="第84页" draggable="false"><div class="thumb-num">84</div></div><div class="thumb-item" data-idx="84"><img decoding="async" src="pages/thumbs/page_085.jpg" alt="第85页" draggable="false"><div class="thumb-num">85</div></div><div class="thumb-item" data-idx="85"><img decoding="async" src="pages/thumbs/page_086.jpg" alt="第86页" draggable="false"><div class="thumb-num">86</div></div><div class="thumb-item" data-idx="86"><img decoding="async" src="pages/thumbs/page_087.jpg" alt="第87页" draggable="false"><div class="thumb-num">87</div></div><div class="thumb-item" data-idx="87"><img decoding="async" src="pages/thumbs/page_088.jpg" alt="第88页" draggable="false"><div class="thumb-num">88</div></div><div class="thumb-item" data-idx="88"><img decoding="async" src="pages/thumbs/page_089.jpg" alt="第89页" draggable="false"><div class="thumb-num">89</div></div><div class="thumb-item" data-idx="89"><img decoding="async" src="pages/thumbs/page_090.jpg" alt="第90页" draggable="false"><div class="thumb-num">90</div></div><div class="thumb-item" data-idx="90"><img decoding="async" src="pages/thumbs/page_091.jpg" alt="第91页" draggable="false"><div class="thumb-num">91</div></div><div class="thumb-item" data-idx="91"><img decoding="async" src="pages/thumbs/page_092.jpg" alt="第92页" draggable="false"><div class="thumb-num">92</div></div><div class="thumb-item" data-idx="92"><img decoding="async" src="pages/thumbs/page_093.jpg" alt="第93页" draggable="false"><div class="thumb-num">93</div></div><div class="thumb-item" data-idx="93"><img decoding="async" src="pages/thumbs/page_094.jpg" alt="第94页" draggable="false"><div class="thumb-num">94</div></div><div class="thumb-item" data-idx="94"><img decoding="async" src="pages/thumbs/page_095.jpg" alt="第95页" draggable="false"><div class="thumb-num">95</div></div><div class="thumb-item" data-idx="95"><img decoding="async" src="pages/thumbs/page_096.jpg" alt="第96页" draggable="false"><div class="thumb-num">96</div></div><div class="thumb-item" data-idx="96"><img decoding="async" src="pages/thumbs/page_097.jpg" alt="第97页" draggable="false"><div class="thumb-num">97</div></div><div class="thumb-item" data-idx="97"><img decoding="async" src="pages/thumbs/page_098.jpg" alt="第98页" draggable="false"><div class="thumb-num">98</div></div><div class="thumb-item" data-idx="98"><img decoding="async" src="pages/thumbs/page_099.jpg" alt="第99页" draggable="false"><div class="thumb-num">99</div></div><div class="thumb-item" data-idx="99"><img decoding="async" src="pages/thumbs/page_100.jpg" alt="第100页" draggable="false"><div class="thumb-num">100</div></div><div class="thumb-item" data-idx="100"><img decoding="async" src="pages/thumbs/page_101.jpg" alt="第101页" draggable="false"><div class="thumb-num">101</div></div><div class="thumb-item" data-idx="101"><img decoding="async" src="pages/thumbs/page_102.jpg" alt="第102页" draggable="false"><div class="thumb-num">102</div></div><div class="thumb-item" data-idx="102"><img decoding="async" src="pages/thumbs/page_103.jpg" alt="第103页" draggable="false"><div class="thumb-num">103</div></div><div class="thumb-item" data-idx="103"><img decoding="async" src="pages/thumbs/page_104.jpg" alt="第104页" draggable="false"><div class="thumb-num">104</div></div><div class="thumb-item" data-idx="104"><img decoding="async" src="pages/thumbs/page_105.jpg" alt="第105页" draggable="false"><div class="thumb-num">105</div></div><div class="thumb-item" data-idx="105"><img decoding="async" src="pages/thumbs/page_106.jpg" alt="第106页" draggable="false"><div class="thumb-num">106</div></div><div class="thumb-item" data-idx="106"><img decoding="async" src="pages/thumbs/page_107.jpg" alt="第107页" draggable="false"><div class="thumb-num">107</div></div><div class="thumb-item" data-idx="107"><img decoding="async" src="pages/thumbs/page_108.jpg" alt="第108页" draggable="false"><div class="thumb-num">108</div></div></div>
+</div>
+
+<!-- 提示 -->
+<div class="hint" id="hint">← → 翻页 · 拖拽书页 · 点击边角</div>
+
+<!-- StPageFlip 库 -->
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+
+<script>
+/* ============ 常量 ============ */
+const TOTAL = 108;
+const pagePath = (i) => `pages/page_${String(i+1).padStart(3,'0')}.jpg`;
+const thumbPath = (i) => `pages/thumbs/page_${String(i+1).padStart(3,'0')}.jpg`;
+
+/* ============ 翻页音效（Web Audio 合成翻纸沙沙声）============ */
+let audioCtx = null;
+let soundOn = true;
+function ensureAudio(){
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+  }
+  if(audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+}
+function playFlipSound(){
+  if(!soundOn) return;
+  ensureAudio();
+  if(!audioCtx) return;
+  const ctx = audioCtx;
+  const duration = 0.42;
+  const sr = ctx.sampleRate;
+  const len = Math.floor(sr*duration);
+  const buf = ctx.createBuffer(1,len,sr);
+  const data = buf.getChannelData(0);
+  // 翻纸：起始一个短促的"啪"，随后衰减的沙沙声
+  for(let i=0;i<len;i++){
+    const t = i/sr;
+    let env;
+    if(t < 0.025){
+      env = (t/0.025);            // 起音
+    }else if(t < 0.08){
+      env = 1 - (t-0.025)/0.055*0.55;  // 中段
+    }else{
+      env = 0.45 * Math.exp(-(t-0.08)*7); // 衰减拖尾
+    }
+    // 多频段噪音叠加增加质感
+    const n1 = Math.random()*2-1;
+    const n2 = Math.random()*2-1;
+    data[i] = (n1*0.7 + n2*0.3) * env * 0.55;
+  }
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  // 带通：800Hz - 5kHz，类似真实纸张拂动
+  const hp = ctx.createBiquadFilter();
+  hp.type='highpass'; hp.frequency.value=700;
+  const lp = ctx.createBiquadFilter();
+  lp.type='lowpass'; lp.frequency.value=5500;
+  // 轻微"哒"声（短脉冲）作为开头点缀
+  const click = ctx.createOscillator();
+  click.type='triangle'; click.frequency.value=180;
+  const clickGain = ctx.createGain();
+  clickGain.gain.setValueAtTime(0.0,ctx.currentTime);
+  clickGain.gain.linearRampToValueAtTime(0.08,ctx.currentTime+0.005);
+  clickGain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.06);
+  click.connect(clickGain).connect(ctx.destination);
+  click.start();
+  click.stop(ctx.currentTime+0.07);
+
+  const masterGain = ctx.createGain();
+  masterGain.gain.value = 0.7;
+  src.connect(hp); hp.connect(lp); lp.connect(masterGain);
+  masterGain.connect(ctx.destination);
+  src.start();
+}
+
+/* ============ 加载进度 ============ */
+const loaderEl   = document.getElementById('loader');
+const progressBar= document.getElementById('progressBar');
+function preload(urls,onProgress){
+  return new Promise(resolve=>{
+    let done=0;
+    if(urls.length===0){ resolve(); return; }
+    urls.forEach(u=>{
+      const img=new Image();
+      img.onload=img.onerror=()=>{
+        done++;
+        onProgress && onProgress(done/urls.length);
+        if(done===urls.length) resolve();
+      };
+      img.src=u;
+    });
+  });
+}
+
+/* ============ 主逻辑 ============ */
+let pageFlip = null;
+let currentPage = 0;
+
+function calcSize(){
+  // 单页：宽 = 高 * 0.707
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const availH = vh - 80 - 110;             // 减去顶部标题 + 底部控制
+  const availW = vw - 40;
+  // 双页模式：总宽 = 2 * pageW；单页：总宽 = pageW
+  const useDouble = vw >= 900;
+  const ratio = 0.707;
+  let pageH, pageW;
+  if(useDouble){
+    pageH = availH;
+    pageW = pageH * ratio;
+    if(pageW*2 > availW){
+      pageW = availW/2;
+      pageH = pageW/ratio;
+    }
+  }else{
+    pageH = availH;
+    pageW = pageH * ratio;
+    if(pageW > availW){
+      pageW = availW;
+      pageH = pageW/ratio;
+    }
+  }
+  return {w:Math.floor(pageW),h:Math.floor(pageH),useDouble};
+}
+
+function initBook(){
+  const {w,h} = calcSize();
+  pageFlip = new St.PageFlip(document.getElementById('book'),{
+    width:w,
+    height:h,
+    size:'stretch',
+    minWidth:280, maxWidth:1200,
+    minHeight:400, maxHeight:1700,
+    maxShadowOpacity:0.6,
+    showCover:true,
+    flippingTime:750,
+    usePortrait:true,
+    autoSize:true,
+    /* 移动端：true 时只响应水平方向，允许竖直滚动。
+       我们已经把 body overflow 设为 hidden，竖直也不需要滚动，
+       所以设 false，让任意方向的滑动都能触发翻页，触感更跟手 */
+    mobileScrollSupport:false,
+    drawShadow:true,
+    useMouseEvents:true,
+    /* 关键：禁用 PageFlip 内置的"水平滑动翻页"判定（设置为不可能达到的距离），
+       否则它会和下面我们自己写的全页面滑动手势同时触发，造成"一滑翻两页"。
+       书页角部的"卷起翻页"动画不受此参数影响，仍然保留。 */
+    swipeDistance:99999,
+    clickEventForward:true,
+    showPageCorners:true,
+  });
+
+  // 用 img 元素直接喂入
+  const imgs = [];
+  for(let i=0;i<TOTAL;i++){
+    const img = document.createElement('img');
+    img.src = pagePath(i);
+    img.alt = '第'+(i+1)+'页';
+    img.draggable = false;
+    imgs.push(img);
+  }
+  pageFlip.loadFromHTML(imgs);
+
+  // 事件
+  pageFlip.on('flip', e => {
+    currentPage = e.data;
+    updateUI();
+    playFlipSound();
+  });
+  pageFlip.on('changeOrientation', ()=>{ updateUI(); });
+
+  /* ============ 全页面滑动手势（修复"只能在书页底部边角才能滑动"） ============
+     StPageFlip 内置的拖拽只识别从书页四角附近开始的触摸/鼠标动作。
+     这里在 #book 容器上再叠一层 touch 监听：
+     - 起点和方向由我们自己判断
+     - 如果 PageFlip 自身没有进入拖拽状态（state==='read'），手放开后再主动调用 flipNext/flipPrev
+     - 否则不干预，让 PageFlip 自己的"翻角动画"接管
+  */
+  const bookEl = document.getElementById('book');
+  let pfState = 'read';
+  pageFlip.on('changeState', ev => { pfState = ev.data; });
+
+  let tStartX=0, tStartY=0, tStartTime=0, tValid=false;
+  bookEl.addEventListener('touchstart', e=>{
+    if(e.touches.length !== 1){ tValid=false; return; }
+    tStartX = e.touches[0].clientX;
+    tStartY = e.touches[0].clientY;
+    tStartTime = Date.now();
+    tValid = true;
+  }, {passive:true});
+
+  bookEl.addEventListener('touchend', e=>{
+    if(!tValid) return;
+    tValid = false;
+    // PageFlip 自己已经接管（用户从角部拖拽），不再重复翻页
+    if(pfState !== 'read') return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - tStartX;
+    const dy = t.clientY - tStartY;
+    const dt = Date.now() - tStartTime;
+    if(Math.abs(dx) < 30) return;                 // 距离太短 → 视为点击
+    if(Math.abs(dy) > Math.abs(dx)*0.9) return;   // 倾斜太大 → 视为竖滑
+    if(dt > 900) return;                          // 太慢 → 误触/拖延
+    if(dx < 0) pageFlip.flipNext();
+    else       pageFlip.flipPrev();
+  }, {passive:true});
+
+  bookEl.addEventListener('touchcancel', ()=>{ tValid=false; }, {passive:true});
+
+  // 同时给桌面端补一个"鼠标拖拽中部翻页"。仅当 PageFlip 自身没拖角时才生效
+  let mDown=false, mStartX=0, mStartY=0, mStartTime=0;
+  bookEl.addEventListener('mousedown', e=>{
+    if(e.button !== 0) return;
+    mDown = true;
+    mStartX = e.clientX; mStartY = e.clientY; mStartTime = Date.now();
+  });
+  window.addEventListener('mouseup', e=>{
+    if(!mDown) return;
+    mDown = false;
+    if(pfState !== 'read') return;
+    const dx = e.clientX - mStartX;
+    const dy = e.clientY - mStartY;
+    const dt = Date.now() - mStartTime;
+    if(Math.abs(dx) < 40) return;
+    if(Math.abs(dy) > Math.abs(dx)*0.9) return;
+    if(dt > 1200) return;
+    if(dx < 0) pageFlip.flipNext();
+    else       pageFlip.flipPrev();
+  });
+}
+
+/* ============ UI 更新 ============ */
+const pageInput = document.getElementById('pageInput');
+const pageTotalEl= document.getElementById('pageTotal');
+function updateUI(){
+  pageInput.value = currentPage+1;
+  pageTotalEl.textContent = TOTAL;
+  // 缩略图高亮
+  document.querySelectorAll('.thumb-item').forEach((el,i)=>{
+    el.classList.toggle('current', i===currentPage);
+    if(i===currentPage) el.scrollIntoView({block:'nearest',behavior:'smooth'});
+  });
+}
+
+/* ============ 控制按钮 ============ */
+document.getElementById('btnPrev').addEventListener('click', ()=> pageFlip && pageFlip.flipPrev());
+document.getElementById('btnNext').addEventListener('click', ()=> pageFlip && pageFlip.flipNext());
+document.getElementById('btnFirst').addEventListener('click',()=> pageFlip && pageFlip.flip(0));
+document.getElementById('btnLast').addEventListener('click', ()=> pageFlip && pageFlip.flip(TOTAL-1));
+
+pageInput.addEventListener('change', ()=>{
+  let v = parseInt(pageInput.value,10);
+  if(isNaN(v)) v=1;
+  v = Math.max(1,Math.min(TOTAL,v));
+  pageInput.value = v;
+  pageFlip && pageFlip.flip(v-1);
+});
+
+/* ============ 音效开关 ============ */
+const btnSound = document.getElementById('btnSound');
+btnSound.addEventListener('click', ()=>{
+  soundOn = !soundOn;
+  btnSound.classList.toggle('active', soundOn);
+  showHint(soundOn?'翻页音效 · 已开启':'翻页音效 · 已关闭');
+  if(soundOn){ ensureAudio(); playFlipSound(); }
+});
+
+/* ============ 全屏 ============ */
+const btnFullscreen = document.getElementById('btnFullscreen');
+btnFullscreen.addEventListener('click', ()=>{
+  const d = document;
+  if(!d.fullscreenElement && !d.webkitFullscreenElement){
+    (d.documentElement.requestFullscreen || d.documentElement.webkitRequestFullscreen).call(d.documentElement);
+  }else{
+    (d.exitFullscreen || d.webkitExitFullscreen).call(d);
+  }
+});
+
+/* ============ 缩略图 ============ */
+const thumbsEl   = document.getElementById('thumbs');
+const thumbsGrid = document.getElementById('thumbsGrid');
+const btnThumbs  = document.getElementById('btnThumbs');
+const thumbsClose= document.getElementById('thumbsClose');
+
+function buildThumbs(){
+  const frag = document.createDocumentFragment();
+  for(let i=0;i<TOTAL;i++){
+    const div = document.createElement('div');
+    div.className = 'thumb-item';
+    div.dataset.idx = i;
+    const img = document.createElement('img');
+    // 不用 lazy：108 张缩略图总共约 2MB，eager 一次加载体验更好，
+    // 也避免 aspect-ratio 容器塌缩导致永远不进入视口的问题。
+    img.decoding = 'async';
+    img.src = thumbPath(i);
+    img.alt = '第'+(i+1)+'页';
+    img.draggable = false;
+    img.onerror = ()=>{
+      // 缩略图加载失败时降级使用大图
+      img.onerror = null;
+      img.src = pagePath(i);
+    };
+    const num = document.createElement('div');
+    num.className='thumb-num';
+    num.textContent= i+1;
+    div.appendChild(img);
+    div.appendChild(num);
+    div.addEventListener('click', ()=>{
+      pageFlip && pageFlip.flip(i);
+      if(window.innerWidth<640) closeThumbs();
+    });
+    frag.appendChild(div);
+  }
+  thumbsGrid.appendChild(frag);
+}
+function openThumbs(){ thumbsEl.classList.add('open'); btnThumbs.classList.add('active'); }
+function closeThumbs(){ thumbsEl.classList.remove('open'); btnThumbs.classList.remove('active'); }
+btnThumbs.addEventListener('click', ()=>{
+  thumbsEl.classList.contains('open') ? closeThumbs() : openThumbs();
+});
+thumbsClose.addEventListener('click', closeThumbs);
+
+/* ============ 提示 ============ */
+let hintTimer=null;
+const hintEl = document.getElementById('hint');
+function showHint(text){
+  hintEl.textContent = text;
+  hintEl.classList.add('show');
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(()=>hintEl.classList.remove('show'),1400);
+}
+
+/* ============ 键盘 ============ */
+document.addEventListener('keydown', e=>{
+  if(e.target===pageInput) return;
+  switch(e.key){
+    case 'ArrowLeft':  case 'PageUp':   pageFlip && pageFlip.flipPrev(); break;
+    case 'ArrowRight': case 'PageDown': case ' ': pageFlip && pageFlip.flipNext(); e.preventDefault(); break;
+    case 'Home': pageFlip && pageFlip.flip(0); break;
+    case 'End':  pageFlip && pageFlip.flip(TOTAL-1); break;
+    case 'Escape': if(thumbsEl.classList.contains('open')) closeThumbs(); break;
+  }
+});
+
+/* ============ 窗口尺寸 ============ */
+let resizeTimer=null;
+window.addEventListener('resize', ()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(()=>{
+    if(pageFlip){
+      const {w,h} = calcSize();
+      pageFlip.update({width:w,height:h});
+    }
+  },150);
+});
+
+/* ============ 启动 ============ */
+async function start(){
+  buildThumbs();
+  // 预加载前若干页，剩下的让浏览器懒加载
+  const preloadList = [];
+  for(let i=0;i<Math.min(6,TOTAL);i++) preloadList.push(pagePath(i));
+  await preload(preloadList,(p)=>{
+    progressBar.style.width = (p*100).toFixed(0)+'%';
+  });
+  // 初始化书本
+  initBook();
+  // 隐藏加载层
+  setTimeout(()=>{
+    loaderEl.classList.add('hide');
+    showHint('← → 翻页 · 拖拽书页 · 点击边角');
+  },300);
+  // 首次点击/按键解锁音频上下文
+  const unlock = ()=>{ ensureAudio(); window.removeEventListener('click',unlock); window.removeEventListener('keydown',unlock); };
+  window.addEventListener('click',unlock);
+  window.addEventListener('keydown',unlock);
+}
+start();
+</script>
+
+
+
+<div id="css-checker-widget"></div><a id="bottomBar" style="position: fixed; bottom: -40px; left: 0px; z-index: 9999; transform: translateX(-50%); background-color: transparent; border-radius: 5px 5px 0px 0px; opacity: 0.3; padding: 5px; transition: 0.3s; cursor: pointer; max-height: 100px; max-width: 45px;"><img src="chrome-extension://kobncfkmjelbefaoohoblamnbackjggk/icon/icon_32.png" style="width: 32px; height: 32px;"></a></body><div id="immersive-translate-browser-popup" style="all: initial"></div></html>
