@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="个人收藏的音频音效、影视后期、CG三维、设计教程、创意灵感、配色、字体、图片素材与图片处理网站导航。">
+<title>数字创意资源导航</title>
+<style>
+:root{
+  --bg:#f4f6fb;--panel:#fff;--text:#202638;--muted:#778096;
+  --primary:#5267df;--primary2:#7c5ce7;--line:#e8ebf3;
+  --shadow:0 8px 28px rgba(31,43,86,.07);--radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.hero{background:linear-gradient(120deg,#263a79,#5267df 55%,#8060df);color:#fff;padding:42px 22px 34px}
+.hero-inner{max-width:1180px;margin:auto}
+.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.78}
+h1{font-size:clamp(27px,4vw,40px);margin:8px 0 7px;letter-spacing:1px}
+.subtitle{margin:0;color:rgba(255,255,255,.82);font-size:15px}
+.search-wrap{margin-top:25px;max-width:680px;position:relative}
+.search-wrap input{width:100%;border:0;border-radius:12px;padding:15px 48px 15px 18px;font-size:15px;outline:none;box-shadow:0 8px 25px rgba(12,20,60,.15)}
+.search-icon{position:absolute;right:17px;top:10px;font-size:22px;color:#778096}
+.layout{max-width:1180px;margin:26px auto;padding:0 20px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px}
+.sidebar{position:sticky;top:18px;align-self:start;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+.side-title{font-size:12px;color:var(--muted);padding:5px 10px 10px;letter-spacing:1px}
+.nav-link{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;color:#596176;font-size:14px;margin:2px 0;transition:.2s}
+.nav-link:hover,.nav-link.active{background:#eef0ff;color:var(--primary);font-weight:600}
+.content{min-width:0}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 18px;color:var(--muted);font-size:13px}
+.toolbar button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 11px;cursor:pointer;color:#586078}
+.category{margin-bottom:28px;scroll-margin-top:18px}
+.category-head{display:flex;align-items:center;gap:10px;margin:0 0 13px}
+.category-head .icon{width:36px;height:36px;border-radius:11px;background:#e9ecff;display:grid;place-items:center;font-size:18px}
+.category-head h2{font-size:19px;margin:0}
+.category-head small{color:var(--muted);font-size:12px;margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 15px 13px;min-height:112px;box-shadow:0 3px 12px rgba(31,43,86,.025);transition:transform .18s,box-shadow .18s,border-color .18s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#cbd2ff}
+.card-top{display:flex;align-items:center;gap:9px;margin-bottom:7px;padding-right:22px}
+.favicon{width:27px;height:27px;border-radius:8px;background:#f0f2f8;display:grid;place-items:center;font-size:13px;color:#596176;flex-shrink:0;overflow:hidden}
+.favicon img{width:18px;height:18px}
+.card h3{font-size:14px;margin:0;font-weight:650;overflow-wrap:anywhere}
+.card p{font-size:12px;color:var(--muted);margin:0;line-height:1.55}
+.open-mark{position:absolute;right:13px;top:13px;color:#a5abc0;font-size:13px}
+.tag{display:inline-block;margin-top:9px;padding:2px 7px;border-radius:5px;background:#f2f4fa;color:#7a8296;font-size:10px}
+.favorite{position:absolute;right:12px;bottom:11px;border:0;background:transparent;color:#c0c5d2;cursor:pointer;font-size:17px;padding:0}
+.favorite.on{color:#f1ad35}
+.empty{display:none;background:#fff;border-radius:12px;padding:35px;text-align:center;color:var(--muted)}
+.notice{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px 18px;color:#687187;font-size:12px;margin:5px 0 30px}
+footer{text-align:center;color:#9299aa;font-size:12px;padding:25px 15px 35px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:185px minmax(0,1fr);gap:16px}}
+@media(max-width:650px){.hero{padding:30px 18px}.layout{display:block;margin:18px auto;padding:0 14px}.sidebar{position:static;margin-bottom:20px;display:flex;overflow-x:auto;gap:5px;padding:9px}.side-title{display:none}.nav-link{white-space:nowrap;padding:8px 10px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:12px;min-height:116px}.card h3{font-size:13px}.category-head h2{font-size:17px}.category-head small{display:none}}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">PERSONAL RESOURCE DIRECTORY</div>
+    <h1>数字创意资源导航</h1>
+    <p class="subtitle">音频音效 · 影视后期 · CG三维 · 设计教程 · 创意灵感 · 图片与字体素材</p>
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="搜索网站名称或用途，例如：音效、C4D、配色……" autocomplete="off" aria-label="搜索网站">
+      <span class="search-icon">⌕</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-title">资源分类</div>
+    <a class="nav-link active" href="#audio">🎵 音频与音效</a>
+    <a class="nav-link" href="#post">🎬 影视后期与CG</a>
+    <a class="nav-link" href="#learn">📚 教程学习</a>
+    <a class="nav-link" href="#inspiration">✨ 设计灵感</a>
+    <a class="nav-link" href="#color">🎨 配色工具</a>
+    <a class="nav-link" href="#font">🔤 字体资源</a>
+    <a class="nav-link" href="#image">🖼️ 图片素材</a>
+    <a class="nav-link" href="#tools">🛠️ 图片处理与工具</a>
+    <a class="nav-link" href="#favorites">⭐ 我的收藏</a>
+  </aside>
+
+  <main class="content">
+    <div class="toolbar">
+      <span id="resultCount">收录网站</span>
+      <button id="clearSearch" type="button">清除搜索</button>
+    </div>
+
+    <section class="category" id="audio" data-category="音频与音效">
+      <div class="category-head"><span class="icon">🎵</span><h2>音频与音效</h2><small>背景音乐、影视音效、环境声</small></div>
+      <div class="grid">
+        <a class="card" href="https://www.tukuppt.com/yinxiao/?plan=10029-529-261005" target="_blank" rel="noopener noreferrer" data-name="熊猫办公音效 音频 背景音乐 PPT"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">熊</span><h3>熊猫办公 · 音效</h3></div><p>PPT配乐、背景音乐、音效及办公创作素材。</p><span class="tag">音频素材</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.aigei.com/" target="_blank" rel="noopener noreferrer" data-name="爱给网 音效 配乐 视频 3D"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">爱</span><h3>爱给网</h3></div><p>音效、配乐、视频、3D模型等综合创作资源。</p><span class="tag">综合素材</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.soundsnap.com/" target="_blank" rel="noopener noreferrer" data-name="Soundsnap 专业音效"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">S</span><h3>Soundsnap</h3></div><p>专业音效库，适合影视、游戏和动画制作。</p><span class="tag">专业音效</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://1soundfx.com/" target="_blank" rel="noopener noreferrer" data-name="1SoundFX 音效"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">1</span><h3>1SoundFX</h3></div><p>音效素材补充资源。</p><span class="tag">音效素材</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://freesound.org/" target="_blank" rel="noopener noreferrer" data-name="Freesound 免费 音效 环境声"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">F</span><h3>Freesound</h3></div><p>社区音效库，可查找环境声、脚步声和特殊音效。</p><span class="tag">社区音效库</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.yugaopian.cn/" target="_blank" rel="noopener noreferrer" data-name="预告片世界 电影 预告片"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">预</span><h3>预告片世界</h3></div><p>电影预告片与影视宣传内容参考；站点可用性请自行确认。</p><span class="tag">影视参考</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="post" data-category="影视后期与CG">
+      <div class="category-head"><span class="icon">🎬</span><h2>影视后期与CG资源</h2><small>AE、PR、C4D、三维模型与动画</small></div>
+      <div class="grid">
+        <a class="card" href="https://www.lookae.com/" target="_blank" rel="noopener noreferrer" data-name="LookAE AE PR 达芬奇 插件 模板"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">L</span><h3>LookAE</h3></div><p>影视后期插件、模板、预设和视频素材。</p><span class="tag">影视后期</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://c4dsky.com/" target="_blank" rel="noopener noreferrer" data-name="C4DSKY C4D 插件 模型"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">C4</span><h3>C4DSKY</h3></div><p>C4D、AE插件、模型及CG相关资源。</p><span class="tag">C4D / CG</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.newcger.com/" target="_blank" rel="noopener noreferrer" data-name="NewCGer CG 影视后期"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">N</span><h3>NewCGer</h3></div><p>CG、影视后期和创意制作资源。</p><span class="tag">CG资源</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.gfxcamp.com/" target="_blank" rel="noopener noreferrer" data-name="GFXCamp CG 影视后期"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">G</span><h3>GFXCamp</h3></div><p>CG、影视后期、三维设计相关资源。</p><span class="tag">CG资源</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.cgown.com/" target="_blank" rel="noopener noreferrer" data-name="CGOwn CG 资源 教程"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">CG</span><h3>CGOwn</h3></div><p>CG资源、教程及创作素材。</p><span class="tag">CG资源</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.mixamo.com/" target="_blank" rel="noopener noreferrer" data-name="Mixamo 3D 人物 自动绑定 动作"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">M</span><h3>Mixamo</h3></div><p>3D人物自动绑定骨骼、动作库与角色动画。</p><span class="tag">角色动画</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.blender.org/" target="_blank" rel="noopener noreferrer" data-name="Blender 免费 开源 3D 建模 动画"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">B</span><h3>Blender</h3></div><p>免费开源的3D建模、动画、渲染与合成软件。</p><span class="tag">3D软件</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://blendermarket.com/" target="_blank" rel="noopener noreferrer" data-name="Blender Market 插件 模型"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">BM</span><h3>Blender Market</h3></div><p>Blender插件、模型、材质和生产力工具市场。</p><span class="tag">3D资源市场</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://sketchfab.com/" target="_blank" rel="noopener noreferrer" data-name="Sketchfab 在线 3D 模型"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">S</span><h3>Sketchfab</h3></div><p>在线浏览和展示3D模型，适合模型参考。</p><span class="tag">3D模型</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://polyhaven.com/" target="_blank" rel="noopener noreferrer" data-name="Poly Haven HDRI 材质 模型"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">P</span><h3>Poly Haven</h3></div><p>HDRI环境贴图、PBR材质和3D模型资源。</p><span class="tag">免费3D素材</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="learn" data-category="教程学习">
+      <div class="category-head"><span class="icon">📚</span><h2>教程学习</h2><small>软件教学、设计课程与视频教程</small></div>
+      <div class="grid">
+        <a class="card" href="https://www.c4d.cn/" target="_blank" rel="noopener noreferrer" data-name="C4D之家 C4D教程"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">C</span><h3>C4D之家</h3></div><p>C4D中文教程、建模、渲染与动画学习。</p><span class="tag">中文教程</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.c4dcn.com/" target="_blank" rel="noopener noreferrer" data-name="C4DCN C4D"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">C</span><h3>C4DCN</h3></div><p>C4D学习、CG交流与相关教程资源。</p><span class="tag">中文教程</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.ui.cn/" target="_blank" rel="noopener noreferrer" data-name="UI中国 UI设计"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">UI</span><h3>UI中国</h3></div><p>UI设计作品、设计师交流与行业内容。</p><span class="tag">UI设计</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://uiiiuiii.com/" target="_blank" rel="noopener noreferrer" data-name="优设教程 设计教程"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">优</span><h3>优设教程</h3></div><p>平面设计、UI、摄影和创意软件教程。</p><span class="tag">设计学习</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.videocopilot.net/" target="_blank" rel="noopener noreferrer" data-name="Video Copilot AE 特效"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">VC</span><h3>Video Copilot</h3></div><p>After Effects特效、合成与影视视觉教程。</p><span class="tag">AE特效</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://vimeo.com/" target="_blank" rel="noopener noreferrer" data-name="Vimeo 视频 创意作品"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">V</span><h3>Vimeo</h3></div><p>创意短片、动画、影视作品与视频案例。</p><span class="tag">视频学习</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" data-name="YouTube 视频教程"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">▶</span><h3>YouTube</h3></div><p>海量软件教程、创作经验与英文学习资源。</p><span class="tag">综合教程</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.eyedesyn.com/" target="_blank" rel="noopener noreferrer" data-name="EyeDesyn C4D 三维动画"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">E</span><h3>EyeDesyn</h3></div><p>C4D、三维设计与动态图形教程。</p><span class="tag">三维动画</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://greyscalegorilla.com/tutorials/" target="_blank" rel="noopener noreferrer" data-name="Greyscalegorilla C4D 材质 渲染"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">G</span><h3>Greyscalegorilla</h3></div><p>C4D、材质、灯光、渲染和运动图形教程。</p><span class="tag">专业教程</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="inspiration" data-category="设计灵感">
+      <div class="category-head"><span class="icon">✨</span><h2>优秀作品与设计灵感</h2><small>作品欣赏、案例研究、创意收集</small></div>
+      <div class="grid">
+        <a class="card" href="https://www.zcool.com.cn/" target="_blank" rel="noopener noreferrer" data-name="站酷 ZCOOL 设计作品"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">站</span><h3>站酷 ZCOOL</h3></div><p>国内设计作品、插画、海报、动画与视觉案例。</p><span class="tag">设计社区</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" data-name="Pinterest 灵感 图片 收集"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">P</span><h3>Pinterest</h3></div><p>收集角色、场景、分镜、配色和视觉灵感。</p><span class="tag">灵感收藏</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.behance.net/" target="_blank" rel="noopener noreferrer" data-name="Behance 作品集 设计"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">B</span><h3>Behance</h3></div><p>专业设计作品集，适合研究完整项目流程。</p><span class="tag">作品集</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://dribbble.com/" target="_blank" rel="noopener noreferrer" data-name="Dribbble UI 网页 图形设计"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">D</span><h3>Dribbble</h3></div><p>UI界面、网页视觉、图标和动效设计灵感。</p><span class="tag">UI灵感</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://huaban.com/" target="_blank" rel="noopener noreferrer" data-name="花瓣网 图片 灵感 收集"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">花</span><h3>花瓣网</h3></div><p>图片采集、灵感整理与视觉素材参考。</p><span class="tag">灵感收藏</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="color" data-category="配色工具">
+      <div class="category-head"><span class="icon">🎨</span><h2>配色工具</h2><small>色彩灵感、色板与颜色分析</small></div>
+      <div class="grid">
+        <a class="card" href="https://picular.co/" target="_blank" rel="noopener noreferrer" data-name="Picular 关键词 颜色"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">P</span><h3>Picular</h3></div><p>通过关键词探索相关颜色灵感。</p><span class="tag">颜色搜索</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://webcolourdata.com/" target="_blank" rel="noopener noreferrer" data-name="WebColourData 颜色分析"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">W</span><h3>WebColourData</h3></div><p>网页颜色信息与配色分析工具。</p><span class="tag">颜色分析</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://colorhunt.co/" target="_blank" rel="noopener noreferrer" data-name="Color Hunt 配色 色板"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">CH</span><h3>Color Hunt</h3></div><p>精选配色组合，适合海报、PPT和动画配色。</p><span class="tag">热门配色</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.peise.net/palette/" target="_blank" rel="noopener noreferrer" data-name="配色网 色彩 色板"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">配</span><h3>配色网</h3></div><p>中文配色方案与色彩参考。</p><span class="tag">中文配色</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.topve.com/color/match.html" target="_blank" rel="noopener noreferrer" data-name="Topve 配色 色彩搭配"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">T</span><h3>Topve 配色</h3></div><p>色彩搭配辅助参考。</p><span class="tag">配色工具</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.colorcombos.com/popular-color-combinations" target="_blank" rel="noopener noreferrer" data-name="ColorCombos 颜色组合"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">CC</span><h3>ColorCombos</h3></div><p>常见颜色组合与配色方案参考。</p><span class="tag">配色参考</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="font" data-category="字体资源">
+      <div class="category-head"><span class="icon">🔤</span><h2>字体资源</h2><small>中文字体、英文字体与字体搭配</small></div>
+      <div class="grid">
+        <a class="card" href="https://www.hellofont.cn/" target="_blank" rel="noopener noreferrer" data-name="你好字体 中文字体"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">字</span><h3>你好字体</h3></div><p>中文字体查找、字体展示与字体相关服务。</p><span class="tag">中文字体</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://app.fontflame.com/" target="_blank" rel="noopener noreferrer" data-name="FontFlame 英文字体 搭配"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">F</span><h3>FontFlame</h3></div><p>英文字体组合与排版搭配灵感。</p><span class="tag">字体搭配</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.kevinandamanda.com/category/free-fonts/" target="_blank" rel="noopener noreferrer" data-name="Kevin and Amanda 免费 手写字体"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">K</span><h3>Kevin and Amanda</h3></div><p>手写风格与装饰性英文字体资源。</p><span class="tag">手写字体</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer" data-name="Google Fonts 开源字体"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">G</span><h3>Google Fonts</h3></div><p>开源字体库，适合网页和设计项目选字。</p><span class="tag">开源字体</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="http://www.epinv.com/post/9272.html" target="_blank" rel="noopener noreferrer" data-name="中文字体 字体资源 文章"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">中</span><h3>中文字体资源文章</h3></div><p>原收藏的中文字体资源整理页面，访问前请核对内容。</p><span class="tag">字体参考</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="image" data-category="图片素材">
+      <div class="category-head"><span class="icon">🖼️</span><h2>图片素材</h2><small>图片、插画、图标与设计素材</small></div>
+      <div class="grid">
+        <a class="card" href="http://97ui.com/" target="_blank" rel="noopener noreferrer" data-name="97UI UI设计素材"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">97</span><h3>97UI</h3></div><p>UI与设计相关素材资源；网站内容以实际访问为准。</p><span class="tag">设计素材</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://588ku.com/" target="_blank" rel="noopener noreferrer" data-name="千图网 图片 PPT 海报 模板"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">千</span><h3>千图网</h3></div><p>海报、PPT、背景、插画和设计模板素材。</p><span class="tag">中文素材</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://pixabay.com/" target="_blank" rel="noopener noreferrer" data-name="Pixabay 免费 图片 视频 音乐"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">P</span><h3>Pixabay</h3></div><p>图片、插画、视频、音乐等创作素材。</p><span class="tag">图片与视频</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.easyicon.net/" target="_blank" rel="noopener noreferrer" data-name="EasyIcon 图标"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">E</span><h3>EasyIcon</h3></div><p>图标搜索与图标素材资源。</p><span class="tag">图标素材</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://unsplash.com/" target="_blank" rel="noopener noreferrer" data-name="Unsplash 高清图片"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">U</span><h3>Unsplash</h3></div><p>高质量摄影图片与视觉素材。</p><span class="tag">高清图片</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="https://www.pexels.com/" target="_blank" rel="noopener noreferrer" data-name="Pexels 免费 图片 视频"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">P</span><h3>Pexels</h3></div><p>图片与视频素材，适合短片和宣传视频参考。</p><span class="tag">图片与视频</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+        <a class="card" href="http://www.wzsky.net/Photo/shejizy/140597.html" target="_blank" rel="noopener noreferrer" data-name="设计资源 图片素材 wzsky"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">W</span><h3>设计资源收藏页</h3></div><p>原收藏的设计资源页面，链接有效性需自行确认。</p><span class="tag">原始收藏</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="tools" data-category="图片处理与工具">
+      <div class="category-head"><span class="icon">🛠️</span><h2>图片处理与工具</h2><small>在线抠图与实用设计工具</small></div>
+      <div class="grid">
+        <a class="card" href="https://www.remove.bg/" target="_blank" rel="noopener noreferrer" data-name="Remove.bg 在线抠图 去背景"><span class="open-mark">↗</span><div class="card-top"><span class="favicon">R</span><h3>Remove.bg</h3></div><p>AI自动去除图片背景，适合人物和产品抠图。</p><span class="tag">在线抠图</span><button class="favorite" type="button" aria-label="收藏">☆</button></a>
+      </div>
+    </section>
+
+    <section class="category" id="favorites" data-category="我的收藏">
+      <div class="category-head"><span class="icon">⭐</span><h2>我的收藏</h2><small>点击网站卡片右下角的☆收藏</small></div>
+      <div class="grid" id="favoriteGrid"></div>
+      <div class="empty" id="favoriteEmpty">还没有收藏网站，点击卡片上的 ☆ 即可添加。</div>
+    </section>
+
+    <div class="notice">
+      <strong>使用提示：</strong>本导航仅用于个人资源整理，网站内容、访问状态、收费规则及素材授权可能发生变化。下载素材、字体、插件或模型前，请仔细阅读原网站的许可协议；“可下载”不代表“可免费商用”。第三方网站的安全性和版权由其各自运营方负责。
+    </div>
+  </main>
+</div>
+<footer>数字创意资源导航 · 个人收藏与学习使用</footer>
+
+<script>
+(function(){
+  const search=document.getElementById('search');
+  const cards=[...document.querySelectorAll('.card')];
+  const sections=[...document.querySelectorAll('.category')];
+  const count=document.getElementById('resultCount');
+  const favoriteGrid=document.getElementById('favoriteGrid');
+  const favoriteEmpty=document.getElementById('favoriteEmpty');
+  const STORAGE_KEY='creativeResourceNavFavoritesV1';
+  let favorites=[];
+  try{favorites=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch(e){favorites=[]}
+
+  function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(favorites))}catch(e){}}
+  function updateFavoriteButtons(){
+    cards.forEach(card=>{
+      const btn=card.querySelector('.favorite');
+      const isOn=favorites.includes(card.href);
+      btn.classList.toggle('on',isOn);
+      btn.textContent=isOn?'★':'☆';
+      btn.setAttribute('aria-pressed',String(isOn));
+    });
+  }
+  function renderFavorites(){
+    favoriteGrid.innerHTML='';
+    const selected=cards.filter(card=>favorites.includes(card.href));
+    selected.forEach(card=>{
+      const clone=card.cloneNode(true);
+      clone.querySelector('.favorite').addEventListener('click',e=>{
+        e.preventDefault();e.stopPropagation();
+        favorites=favorites.filter(url=>url!==card.href);save();
+        updateFavoriteButtons();renderFavorites();
+      });
+      favoriteGrid.appendChild(clone);
+    });
+    favoriteEmpty.style.display=selected.length?'none':'block';
+  }
+  cards.forEach(card=>{
+    card.querySelector('.favorite').addEventListener('click',e=>{
+      e.preventDefault();e.stopPropagation();
+      if(favorites.includes(card.href))favorites=favorites.filter(url=>url!==card.href);
+      else favorites.push(card.href);
+      save();updateFavoriteButtons();renderFavorites();
+    });
+  });
+  function filter(){
+    const q=search.value.trim().toLowerCase();
+    let visible=0;
+    cards.forEach(card=>{
+      const hay=(card.innerText+' '+(card.dataset.name||'')).toLowerCase();
+      const show=!q||hay.includes(q);
+      card.style.display=show?'':'none';
+      if(show)visible++;
+    });
+    sections.forEach(section=>{
+      if(section.id==='favorites')return;
+      const any=[...section.querySelectorAll('.card')].some(card=>card.style.display!=='none');
+      section.style.display=any?'':'none';
+    });
+    count.textContent=q?'找到 '+visible+' 个网站':'共收录 '+cards.length+' 个网站';
+  }
+  search.addEventListener('input',filter);
+  document.getElementById('clearSearch').addEventListener('click',()=>{search.value='';filter();search.focus()});
+  document.querySelectorAll('.nav-link').forEach(link=>{
+    link.addEventListener('click',()=>{
+      document.querySelectorAll('.nav-link').forEach(item=>item.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+  updateFavoriteButtons();renderFavorites();filter();
+})();
+</script>
+</body>
+</html>
